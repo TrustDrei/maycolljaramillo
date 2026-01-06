@@ -132,7 +132,7 @@ const structuredData = [
       <div class="relative grid gap-10 lg:grid-cols-[1.15fr,0.95fr] lg:items-center">
         <div class="space-y-6">
           <p class="section-title">Automatización · SEO técnico · Accesibilidad</p>
-          <h1 class="text-balance text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+          <h1 class="lcp-target text-balance text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
             Ingeniería de sistemas aplicada a plataformas web y automatización
           </h1>
           <p class="max-w-2xl text-lg leading-relaxed text-muted">
@@ -184,7 +184,11 @@ const structuredData = [
               src="/images/person.png"
               alt={`Retrato de ${PERSON.shortName}`}
               class="h-16 w-16 rounded-full object-cover shadow-soft"
-              loading="lazy"
+              width="350"
+              height="350"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
             />
             <div>
               <p class="text-sm font-semibold text-foreground">{PERSON.shortName}</p>

@@ -252,6 +252,13 @@ select.field option {
   transform: translateX(-120%);
 }
 
+.lcp-target {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .lift-in {
     animation: rise-up 600ms ease-out forwards;
