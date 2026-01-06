@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import { SITE_ORIGIN } from '../config/site';
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import { personJsonLd, profilePageJsonLd, websiteJsonLd, type StructuredData } from '../lib/seo';
 
 interface AlternateLink {
@@ -80,5 +81,6 @@ const defaultStructuredData: StructuredData[] = [
     </main>
     <Footer lang={lang} />
     <Analytics />
+    <SpeedInsights />
   </body>
 </html>
