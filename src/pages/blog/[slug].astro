@@ -65,5 +65,31 @@ const structuredData = [
     <div class="mt-6 content">
       <Content />
     </div>
+    <div class="mt-10 grid gap-4 md:grid-cols-2">
+      <a
+        class="card flex items-center justify-between gap-3 p-5 transition hover:-translate-y-[2px] hover:border-accent"
+        href={lang === 'es' ? '/es/services' : '/en/services'}
+      >
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.16em] text-accent">{lang === 'es' ? 'Servicios' : 'Services'}</p>
+          <p class="mt-1 text-foreground font-semibold">
+            {lang === 'es' ? 'Ver servicios de SEO tecnico y performance' : 'See technical SEO and performance services'}
+          </p>
+        </div>
+        <span aria-hidden="true" class="text-accent">→</span>
+      </a>
+      <a
+        class="card flex items-center justify-between gap-3 p-5 transition hover:-translate-y-[2px] hover:border-accent"
+        href="/work"
+      >
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.16em] text-accent">{lang === 'es' ? 'Casos' : 'Cases'}</p>
+          <p class="mt-1 text-foreground font-semibold">
+            {lang === 'es' ? 'Explorar casos y resultados' : 'Explore case studies and results'}
+          </p>
+        </div>
+        <span aria-hidden="true" class="text-accent">→</span>
+      </a>
+    </div>
   </article>
 </BaseLayout>

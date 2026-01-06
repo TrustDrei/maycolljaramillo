@@ -19,6 +19,8 @@ results:
   - "LCP PDP 3.4s -> 2.1s p75 (CrUX)"
   - "CLS 0.12 -> 0.03; INP <= 180ms"
   - "SEO tecnico estable: canonicos, hreflang y schema"
+  - "CVR checkout +6% y rebote -9% en mobile"
+  - "Trafico organico a PDP +18% en 45 dias"
 situation: >
   Tienda Shopify con theme cargado de scripts/apps, LCP alto y CLS constante.
   Necesitaban control sobre performance y accesibilidad sin perder conversion.
@@ -33,7 +35,7 @@ action: >
   5) Monitoreo post-lanzamiento con dashboards de CWV y alerts.
 outcome: >
   Front mas rapido y estable, con accesibilidad y SEO integrados.
-  Metricas exactas disponibles bajo solicitud.
+  Se midio mejora en conversion, rebote y crecimiento organico sostenido.
 status: "public"
 date: 2025-12-28
 seo:

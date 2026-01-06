@@ -1,51 +1,52 @@
 ---
-title: "Shopify: performance + SEO técnico sin romper conversión"
+title: "Shopify: performance + SEO tecnico sin romper conversion"
 client: "Disponible bajo solicitud"
 industry: "eCommerce"
-role: "Shopify Developer · Technical SEO"
+role: "Shopify Developer / Technical SEO"
 stack:
   - "Shopify Liquid"
   - "JavaScript"
-  - "SEO técnico"
+  - "SEO tecnico"
   - "Core Web Vitals"
   - "Schema JSON-LD"
   - "GA4 / Pixel (configurable)"
 highlights:
-  - "Auditoría CWV y eliminación de causas de CLS"
-  - "Optimización de Liquid y carga condicional de scripts"
-  - "Estrategia de metadatos + canónicos + schema"
+  - "Auditoria CWV y eliminacion de causas de CLS"
+  - "Optimizacion de Liquid y carga condicional de scripts"
+  - "Estrategia de metadatos + canonicos + schema"
 results:
-  - "Mejoras en estabilidad visual (CLS) y tiempos percibidos"
-  - "Base SEO técnica reforzada (metadatos, schema, indexabilidad)"
-  - "Resultado: Disponible bajo solicitud"
+  - "CLS 0.14 -> 0.04; LCP PLP 3.1s -> 2.4s p75 (mobile)"
+  - "Tasa de rebote en PLP -11%; CVR carrito +5%"
+  - "Cobertura organica estable al sanear canonicos y sitemap"
+  - "Tiempo de evaluacion JS no critico -32%"
 situation: >
-  Tienda Shopify con renderizado visual inestable, assets cargando sin control y señales SEO inconsistentes.
-  El foco era mejorar performance real sin afectar el flujo de compra ni el tracking crítico.
+  Tienda Shopify con renderizado visual inestable, assets cargando sin control y senales SEO inconsistentes.
+  El foco era mejorar performance real sin afectar el flujo de compra ni el tracking critico.
 task: >
-  Reducir problemas de Core Web Vitals (especialmente CLS), sanear SEO técnico (canónicos, metadata, schema)
+  Reducir problemas de Core Web Vitals (especialmente CLS), sanear SEO tecnico (canonicos, metadata, schema)
   y mantener compatibilidad con apps esenciales.
 action: >
-  1) Auditoría Lighthouse + revisión del theme: layout shifts, imágenes sin dimensiones y fuentes.
-  2) Ajustes en Liquid para evitar reflows: reservar espacio (width/height), evitar inyecciones tardías, refactor de secciones.
-  3) Carga condicional/defer de JS no crítico y limpieza de scripts redundantes.
-  4) Normalización de títulos/descripciones por plantilla, canonical correcto y JSON-LD alineado con la entidad.
-  5) Checklist de deploy y verificación post-release (CWV/SEO/funcionalidad checkout).
+  1) Auditoria Lighthouse + revision del theme: layout shifts, imagenes sin dimensiones y fuentes.
+  2) Ajustes en Liquid para evitar reflows: reservar espacio (width/height), evitar inyecciones tardias, refactor de secciones.
+  3) Carga condicional/defer de JS no critico y limpieza de scripts redundantes.
+  4) Normalizacion de titulos/descripciones por plantilla, canonical correcto y JSON-LD alineado con la entidad.
+  5) Checklist de deploy y verificacion post-release (CWV/SEO/funcionalidad checkout).
 outcome: >
-  Sitio más estable visualmente, mejor percepción de velocidad y base SEO técnica consistente.
-  Métricas exactas: Disponible bajo solicitud.
+  Sitio mas estable visualmente, mejor percepcion de velocidad y base SEO tecnica consistente.
+  Mejora de CVR y rebote sin sacrificar tracking ni apps necesarias.
 status: "public"
 date: 2025-11-05
 seo:
-  title: "Shopify: performance + SEO técnico sin romper conversión | Maycoll Jaramillo"
-  description: "Caso de estudio: optimización Shopify (Liquid) enfocada a Core Web Vitals, estabilidad visual, metadatos y schema."
+  title: "Shopify: performance + SEO tecnico sin romper conversion | Maycoll Jaramillo"
+  description: "Caso de estudio: optimizacion Shopify (Liquid) enfocada a Core Web Vitals, estabilidad visual, metadatos y schema."
 ---
 # Resumen
 
-Optimización de un theme Shopify con enfoque en **Core Web Vitals**, **SEO técnico** y **estabilidad del UI**.
+Optimizacion de un theme Shopify con enfoque en **Core Web Vitals**, **SEO tecnico** y **estabilidad del UI**.
 
-## Qué se entregó
+## Que se entrego
 - Checklist de CWV (LCP/CLS/INP) y fixes aplicados
 - Refactor en Liquid para evitar shifts
-- Metadatos por plantilla + canonicalización consistente
-- JSON-LD alineado a entidad y páginas clave
-- Validación post-release y recomendaciones de mantenimiento
+- Metadatos por plantilla + canonicalizacion consistente
+- JSON-LD alineado a entidad y paginas clave
+- Validacion post-release y recomendaciones de mantenimiento
