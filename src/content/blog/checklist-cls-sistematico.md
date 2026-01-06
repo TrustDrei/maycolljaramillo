@@ -7,6 +7,16 @@ tags:
   - "Performance"
 date: 2024-11-15
 lang: "es"
+translations:
+  title: "How to reduce CLS systematically (technical checklist)"
+  excerpt: "Methodology to lower CLS: inventory unstable elements, layout rules, and visual regression tests."
+  tags:
+    - "CWV"
+    - "CLS"
+    - "Performance"
+  seo:
+    title: "Practical checklist to reduce CLS without breaking UX"
+    description: "Actionable steps to eliminate CLS: placeholders, declared sizes, and automated checks."
 seo:
   title: "Checklist practico para reducir CLS sin romper UX"
   description: "Pasos accionables para eliminar CLS: placeholders, tamanos declarados y pruebas automatizadas."

@@ -10,6 +10,20 @@ const blog = defineCollection({
       date: z.date(),
       updated: z.date().optional(),
       lang: z.enum(['es', 'en']).default('es'),
+      translations: z
+        .object({
+          title: z.string().optional(),
+          excerpt: z.string().optional(),
+          tags: z.array(z.string()).optional(),
+          seo: z
+            .object({
+              title: z.string(),
+              description: z.string()
+            })
+            .optional(),
+          content: z.string().optional()
+        })
+        .optional(),
       seo: z.object({
         title: z.string(),
         description: z.string()
@@ -46,6 +60,26 @@ const caseStudies = defineCollection({
         .object({
           live: z.string().url().optional(),
           repo: z.string().url().optional()
+        })
+        .optional(),
+      translations: z
+        .object({
+          title: z.string().optional(),
+          industry: z.string().optional(),
+          role: z.string().optional(),
+          highlights: z.array(z.string()).optional(),
+          results: z.array(z.string()).optional(),
+          situation: z.string().optional(),
+          task: z.string().optional(),
+          action: z.string().optional(),
+          outcome: z.string().optional(),
+          content: z.string().optional(),
+          seo: z
+            .object({
+              title: z.string(),
+              description: z.string()
+            })
+            .optional()
         })
         .optional(),
       seo: z.object({

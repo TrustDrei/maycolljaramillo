@@ -4,6 +4,13 @@ excerpt: "Pasos para posicionar en mapas: Google Business Profile, citaciones co
 tags: ["SEO", "Local", "GBP"]
 date: 2025-02-07
 lang: "es"
+translations:
+  title: "Local SEO: optimized listing and NAP consistency"
+  excerpt: "Steps to rank in maps: Google Business Profile, consistent citations, and reviews that don't look like spam."
+  tags: ["SEO", "Local", "GBP"]
+  seo:
+    title: "Local SEO: listing checklist and NAP | Maycoll Jaramillo"
+    description: "Actionable checklist to optimize Google Business Profile, citations, reviews, and categories without spam."
 seo:
   title: "SEO local: checklist de ficha y NAP | Maycoll Jaramillo"
   description: "Checklist accionable para optimizar Google Business Profile, citaciones, reseñas y categorias sin inflar el spam."

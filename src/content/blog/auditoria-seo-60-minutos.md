@@ -4,6 +4,13 @@ excerpt: "Checklist express para detectar bloqueos graves: indexacion, canonicos
 tags: ["SEO", "Auditoria", "Tecnico"]
 date: 2025-01-10
 lang: "es"
+translations:
+  title: "Technical SEO audit in 60 minutes"
+  excerpt: "Checklist to review SEO fundamentals fast: crawling, indexing, metadata, CWV, and redirects."
+  tags: ["SEO", "Auditoria", "Checklist"]
+  seo:
+    title: "Technical SEO audit in 60 minutes | Maycoll Jaramillo"
+    description: "Quick audit checklist covering crawl, indexation, metadata, Core Web Vitals, and redirects."
 seo:
   title: "Auditoria SEO tecnica en 60 minutos | Maycoll Jaramillo"
   description: "Metodo rapido para auditar SEO: rastreo, canonicos, robots, velocidad y schema listos para pasar a backlog."

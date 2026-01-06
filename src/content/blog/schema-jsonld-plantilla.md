@@ -4,6 +4,13 @@ excerpt: "Plantilla base para Organization, WebSite, Breadcrumb y Article que pa
 tags: ["SEO", "Schema", "Estructurados"]
 date: 2025-01-24
 lang: "es"
+translations:
+  title: "JSON-LD schema: ready-to-use template"
+  excerpt: "Practical schema structure for Person, WebSite, and BreadcrumbList with common fields filled."
+  tags: ["SEO", "Schema", "JSON-LD"]
+  seo:
+    title: "JSON-LD schema template ready to use | Maycoll Jaramillo"
+    description: "Template to implement JSON-LD (Person, WebSite, BreadcrumbList) with consistent fields."
 seo:
   title: "Schema JSON-LD listo para produccion | Maycoll Jaramillo"
   description: "Implementa Organization, WebSite, Breadcrumb y Article con JSON-LD ligero y validado para mejorar snippets."

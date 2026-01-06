@@ -34,7 +34,15 @@ const langOptions = [
       aria-label={homeLabel}
     >
       <span class="relative grid h-10 w-10 place-items-center rounded-full bg-panel/80 p-1 shadow-soft transition group-hover:scale-[1.03]">
-        <img src="/images/logo.png" alt={`${PERSON.shortName} logo`} class="h-full w-full rounded-full object-contain" />
+        <img
+          src="/images/logo-128.png"
+          alt={`${PERSON.shortName} logo`}
+          width="128"
+          height="128"
+          class="h-full w-full rounded-full object-contain"
+          loading="eager"
+          decoding="async"
+        />
       </span>
       <span class="hidden flex-col text-left leading-tight sm:inline-flex">
         <span class="block text-sm font-semibold text-foreground">{PERSON.shortName}</span>
@@ -134,7 +142,15 @@ const langOptions = [
   <div id="mobile-nav" class="hidden border-t border-border/60 bg-surface/98 backdrop-blur-lg lg:hidden" aria-label={mobileLabel}>
     <div class="page-width flex flex-col gap-3 px-4 py-4 text-sm">
       <div class="flex items-center gap-3 border border-border/60 bg-panel px-3 py-2">
-        <img src="/images/person.png" alt={`${PERSON.shortName}`} class="h-10 w-10 rounded-full object-cover shadow-soft" loading="lazy" />
+        <img
+          src="/images/person-128.png"
+          alt={`${PERSON.shortName}`}
+          width="128"
+          height="128"
+          class="h-10 w-10 rounded-full object-cover shadow-soft"
+          loading="lazy"
+          decoding="async"
+        />
         <div class="leading-tight">
           <p class="text-sm font-semibold text-foreground">{PERSON.shortName}</p>
         </div>

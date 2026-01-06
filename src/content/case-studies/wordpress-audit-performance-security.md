@@ -35,6 +35,44 @@ outcome: >
   Errores criticos reducidos y performance percibida mejorada sin romper funcionalidad.
 status: "public"
 date: 2025-12-10
+translations:
+  title: "WordPress: technical audit (performance, security, SEO)"
+  industry: "Services"
+  role: "Technical Lead"
+  highlights:
+    - "Diagnosed bottlenecks (plugins, hooks, queries)"
+    - "Fixed technical SEO configuration (robots, sitemap, canonicals)"
+    - "Hardening recommendations and reduced attack surface"
+  results:
+    - "Average TTFB 1.2s -> 520ms"
+    - "Home CLS 0.18 -> 0.06 after fixing images and fonts"
+    - "Recurring 404/500 down -70% after cleaning plugins/routes"
+    - "Indexable coverage stabilized after cleaning sitemap/robots"
+  situation: >
+    WordPress site with degraded performance, inconsistent SEO configuration, and risk from plugin sprawl and scattered settings.
+  task: >
+    Find root causes of slowness/errors, clean technical SEO, and propose a realistic phased improvement plan without breaking production.
+  action: >
+    1) Audit with Query Monitor: timings, queries, hooks, conflicts.
+    2) Plugin review: redundancy, impact, alternatives, and safe removal.
+    3) Recommended cache tuning (server + WP) and asset handling (selective minification).
+    4) Technical SEO review: robots.txt, sitemap, canonicals, indexation, thin pages.
+    5) Hardening: permissions, exposed endpoints, updates, and best practices.
+  outcome: >
+    Prioritized roadmap with quick wins and structural fixes, more stable technical base, and cleaner SEO signals. Fewer critical errors and better perceived performance without breaking functionality.
+  content: |
+    <h1>Summary</h1>
+    <p>Technical WordPress audit focused on <strong>performance</strong>, <strong>security</strong>, and <strong>technical SEO</strong>.</p>
+    <h2>Deliverables</h2>
+    <ul>
+      <li>Technical diagnosis (root cause)</li>
+      <li>Impact prioritization (P0/P1/P2)</li>
+      <li>Recommendations that avoid breaking production</li>
+      <li>Post-release validation checklist</li>
+    </ul>
+  seo:
+    title: "WordPress: technical audit (performance, security, SEO) | Maycoll Jaramillo"
+    description: "Case study: WordPress audit with Query Monitor, technical SEO cleanup, and phased improvement plan."
 seo:
   title: "WordPress: auditoria tecnica (performance, seguridad y SEO) | Maycoll Jaramillo"
   description: "Caso de estudio: auditoria WordPress con Query Monitor, saneo SEO tecnico y plan de mejora por impacto."

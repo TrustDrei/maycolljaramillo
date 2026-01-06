@@ -38,6 +38,46 @@ outcome: >
   Se midio mejora en conversion, rebote y crecimiento organico sostenido.
 status: "public"
 date: 2025-12-28
+translations:
+  title: "Headless ecommerce: Astro + Shopify, CWV and accessibility"
+  industry: "Retail"
+  role: "Frontend Lead / Technical SEO"
+  highlights:
+    - "Replaced heavy theme with a controlled headless front end"
+    - "CWV budgets by template (home, PLP, PDP, blog)"
+    - "Accessible patterns (keyboard, focus, semantics) validated"
+  results:
+    - "PDP LCP 3.4s -> 2.1s p75 (CrUX)"
+    - "CLS 0.12 -> 0.03; INP <= 180ms"
+    - "Stable technical SEO: canonicals, hreflang, schema"
+    - "Checkout CVR +6% and bounce -9% on mobile"
+    - "Organic traffic to PDP +18% in 45 days"
+  situation: >
+    Shopify store with a script-heavy theme, high LCP, and recurring CLS. Needed control over performance and accessibility without hurting conversion.
+  task: >
+    Build a headless front with Astro + Storefront API, with CWV budgets, accessibility by default, and consistent technical SEO.
+  action: >
+    1) CWV audit and dependency map for JS/third-parties.
+    2) Migration to Astro with minimal islands and critical asset preloading.
+    3) Accessible layouts (landmarks, focus order, modals/menu) and keyboard tests.
+    4) Canonicals/hreflang per template and JSON-LD (Person, WebSite, BreadcrumbList).
+    5) Post-launch monitoring with CWV dashboards and alerts.
+  outcome: >
+    Faster, more stable front end with accessibility and SEO built-in. Measured lift in conversion, bounce, and sustained organic growth.
+  content: |
+    <h1>Summary</h1>
+    <p>Migration to a <strong>headless</strong> front with Astro/React to control <strong>CWV</strong>, <strong>accessibility</strong>, and <strong>technical SEO</strong>.</p>
+    <h2>Deliverables</h2>
+    <ul>
+      <li>Astro front with minimal islands</li>
+      <li>CWV budgets per template</li>
+      <li>Accessible patterns validated</li>
+      <li>Canonicals + hreflang + schema per page</li>
+      <li>CWV dashboard and alerts</li>
+    </ul>
+  seo:
+    title: "Headless ecommerce Astro + Shopify, CWV and accessibility | Maycoll Jaramillo"
+    description: "Case study: headless front with Astro + Shopify Storefront API, CWV budgets, and integrated accessibility."
 seo:
   title: "Headless ecommerce Astro + Shopify, CWV y accesibilidad | Maycoll Jaramillo"
   description: "Caso de estudio: front headless con Astro + Shopify Storefront API, con budgets de CWV y accesibilidad integrada."

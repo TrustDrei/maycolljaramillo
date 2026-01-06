@@ -13,7 +13,6 @@ const caseStudies = (await getCollection('case-studies')).sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 const posts = (await getCollection('blog'))
-  .filter((post) => post.data.lang === 'en')
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const stackItems = [
@@ -181,11 +180,11 @@ const structuredData = [
         <div class="space-y-4">
           <div class="flex items-center gap-4 rounded-2xl border border-border/70 bg-panel p-4 shadow-soft">
             <img
-              src="/images/person.png"
+              src="/images/person-128.png"
               alt={`Portrait of ${PERSON.shortName}`}
               class="h-16 w-16 rounded-full object-cover shadow-soft"
-              width="350"
-              height="350"
+              width="128"
+              height="128"
               loading="eager"
               fetchpriority="high"
               decoding="async"
@@ -330,14 +329,14 @@ const structuredData = [
         </div>
         <a
           class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          href="/blog"
+          href="/en/blog"
         >
           View blog
         </a>
       </div>
       <div class="mt-6 grid gap-5 md:grid-cols-3">
         {posts.slice(0, 3).map((post) => (
-          <PostCard post={post} />
+          <PostCard post={post} lang="en" />
         ))}
       </div>
     </div>

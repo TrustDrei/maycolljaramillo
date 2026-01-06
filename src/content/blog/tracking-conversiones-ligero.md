@@ -8,6 +8,17 @@ tags:
   - "Performance"
 date: 2024-09-12
 lang: "es"
+translations:
+  title: "Lightweight conversion tracking: GA4 + Pixel without hurting performance"
+  excerpt: "Configure GA4 and Meta Pixel without duplicate scripts or blocking: load order, naming, and testing."
+  tags:
+    - "Analytics"
+    - "GA4"
+    - "Meta Pixel"
+    - "Performance"
+  seo:
+    title: "Lightweight conversion tracking: GA4 + Pixel without hurting CWV"
+    description: "Practical guide to configure GA4 and Meta Pixel with consistent events and non-blocking loading."
 seo:
   title: "Tracking de conversiones ligero: GA4 + Pixel sin afectar CWV"
   description: "Guia practica para configurar GA4 y Meta Pixel con eventos consistentes y carga no bloqueante."

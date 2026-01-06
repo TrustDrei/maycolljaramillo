@@ -4,6 +4,13 @@ excerpt: "Cómo estructurar secciones, rutas y enlaces internos para rastreo lim
 tags: ["SEO", "Arquitectura", "URL"]
 date: 2025-01-17
 lang: "es"
+translations:
+  title: "URL architecture for SEO without migration chaos"
+  excerpt: "Patterns to design friendly, consistent URLs and avoid redirects or cannibalization later."
+  tags: ["SEO", "Arquitectura", "URLs"]
+  seo:
+    title: "SEO URL architecture: patterns that survive migrations | Maycoll Jaramillo"
+    description: "Guidelines to build clean URL structures that avoid cannibalization and reduce redirect chains."
 seo:
   title: "Arquitectura SEO: URLs limpias y enlazado interno | Maycoll Jaramillo"
   description: "Guia practica para definir secciones, profundidad y URL canonicas que faciliten el rastreo y eviten canibalizacion."

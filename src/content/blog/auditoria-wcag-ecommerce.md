@@ -4,6 +4,13 @@ excerpt: "Patrones que se repiten en tiendas: foco, labels, contraste, estados, 
 tags: ["accesibilidad", "wcag", "ecommerce"]
 date: 2025-12-29
 lang: "es"
+translations:
+  title: "WCAG audit in eCommerce: recurring errors and fixes"
+  excerpt: "Patterns that repeat in stores: focus, labels, contrast, states, forms, navigation."
+  tags: ["accessibility", "wcag", "ecommerce"]
+  seo:
+    title: "WCAG audit in eCommerce: errors and fixes | Maycoll Jaramillo"
+    description: "Practical WCAG guide for eCommerce: visible focus, forms, labels, contrast, and keyboard navigation."
 seo:
   title: "Auditoria WCAG en eCommerce: errores y soluciones | Maycoll Jaramillo"
   description: "Guia practica WCAG para eCommerce: foco visible, formularios, labels, contraste y navegacion por teclado."

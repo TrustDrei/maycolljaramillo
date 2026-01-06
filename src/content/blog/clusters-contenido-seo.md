@@ -4,6 +4,13 @@ excerpt: "Metodologia para agrupar keywords, definir pillar pages y briefings re
 tags: ["SEO", "Contenido", "Clusters"]
 date: 2025-01-31
 lang: "es"
+translations:
+  title: "Content clusters that rank and convert"
+  excerpt: "Methodology to group keywords, define pillar pages, and replicate briefs without bloating the backlog."
+  tags: ["SEO", "Content", "Clusters"]
+  seo:
+    title: "How to build SEO content clusters | Maycoll Jaramillo"
+    description: "Step-by-step for pillar pages, internal links, and briefs that match search intent and convert."
 seo:
   title: "Cómo construir clusters de contenido SEO | Maycoll Jaramillo"
   description: "Paso a paso para pillar pages, enlaces internos y briefs que capturan intencion de busqueda y convierten."

@@ -36,6 +36,45 @@ outcome: >
   Mejora de CVR y rebote sin sacrificar tracking ni apps necesarias.
 status: "public"
 date: 2025-11-05
+translations:
+  title: "Shopify: performance + technical SEO without breaking conversion"
+  industry: "eCommerce"
+  role: "Shopify Developer / Technical SEO"
+  highlights:
+    - "CWV audit and removal of CLS causes"
+    - "Liquid optimization and conditional script loading"
+    - "Metadata + canonicals + schema strategy"
+  results:
+    - "CLS 0.14 -> 0.04; PLP LCP 3.1s -> 2.4s p75 (mobile)"
+    - "PLP bounce rate -11%; cart CVR +5%"
+    - "Stable organic coverage after cleaning canonicals and sitemap"
+    - "Non-critical JS evaluation time -32%"
+  situation: >
+    Shopify store with unstable visual rendering, uncontrolled asset loading, and inconsistent SEO signals. Needed real performance gains without harming purchase flow or critical tracking.
+  task: >
+    Reduce Core Web Vitals issues (especially CLS), clean technical SEO (canonicals, metadata, schema), and preserve compatibility with essential apps.
+  action: >
+    1) Lighthouse audit + theme review: layout shifts, images without dimensions, fonts.
+    2) Liquid tweaks to avoid reflows: reserve space (width/height), avoid late injections, refactor sections.
+    3) Conditional/deferred loading of non-critical JS and cleanup of redundant scripts.
+    4) Normalize titles/descriptions per template, correct canonical, and JSON-LD aligned to the entity.
+    5) Deploy checklist and post-release verification (CWV/SEO/checkout functionality).
+  outcome: >
+    More stable visuals, faster perceived speed, and consistent technical SEO. Better CVR and bounce without sacrificing tracking or required apps.
+  content: |
+    <h1>Summary</h1>
+    <p>Optimization of a Shopify theme focused on <strong>Core Web Vitals</strong>, <strong>technical SEO</strong>, and <strong>UI stability</strong>.</p>
+    <h2>Deliverables</h2>
+    <ul>
+      <li>CWV checklist (LCP/CLS/INP) and applied fixes</li>
+      <li>Liquid refactor to avoid shifts</li>
+      <li>Per-template metadata + consistent canonicalization</li>
+      <li>JSON-LD aligned to the entity and key pages</li>
+      <li>Post-release validation and maintenance recommendations</li>
+    </ul>
+  seo:
+    title: "Shopify: performance + technical SEO without breaking conversion | Maycoll Jaramillo"
+    description: "Case study: Shopify optimization (Liquid) focused on Core Web Vitals, visual stability, metadata, and schema."
 seo:
   title: "Shopify: performance + SEO tecnico sin romper conversion | Maycoll Jaramillo"
   description: "Caso de estudio: optimizacion Shopify (Liquid) enfocada a Core Web Vitals, estabilidad visual, metadatos y schema."

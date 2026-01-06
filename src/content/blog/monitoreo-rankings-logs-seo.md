@@ -4,6 +4,13 @@ excerpt: "Stack ligero para seguir posiciones, CTR y rastreo sin dashboards infi
 tags: ["SEO", "Logs", "Monitoreo"]
 date: 2025-02-14
 lang: "es"
+translations:
+  title: "Monitoring rankings and logs without overloading teams"
+  excerpt: "Lightweight stack to track positions, CTR, and crawling without endless dashboards: Search Console, logs, alerts."
+  tags: ["SEO", "Logs", "Monitoring"]
+  seo:
+    title: "SEO monitoring with rankings and logs | Maycoll Jaramillo"
+    description: "Set up a simple stack to watch positions, CTR, and bot behavior using Search Console and server logs."
 seo:
   title: "Monitoreo SEO con rankings y logs | Maycoll Jaramillo"
   description: "Configura un stack simple para vigilar posiciones, CTR y comportamiento de bots usando Search Console y logs."
