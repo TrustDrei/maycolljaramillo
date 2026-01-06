@@ -8,3 +8,15 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[redirects]]
+  from = "/"
+  to = "/es"
+  status = 308
+  force = true
+
+[[redirects]]
+  from = "/contact"
+  to = "/es/contact"
+  status = 308
+  force = true

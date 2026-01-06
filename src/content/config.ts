@@ -13,7 +13,15 @@ const blog = defineCollection({
       seo: z.object({
         title: z.string(),
         description: z.string()
-      })
+      }),
+      hero: z
+        .object({
+          src: z.string(),
+          alt: z.string(),
+          width: z.number(),
+          height: z.number()
+        })
+        .optional()
     })
 });
 

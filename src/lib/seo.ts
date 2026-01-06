@@ -73,6 +73,7 @@ export const articleJsonLd = (post: CollectionEntry<'blog'>): StructuredData => 
   '@type': 'BlogPosting',
   headline: post.data.title,
   description: post.data.excerpt,
+  image: absoluteUrl(post.data.hero?.src ?? defaultOgImage),
   datePublished: post.data.date,
   dateModified: post.data.updated ?? post.data.date,
   url: absoluteUrl(`/blog/${post.slug}`),

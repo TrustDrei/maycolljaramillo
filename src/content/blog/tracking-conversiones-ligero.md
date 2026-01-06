@@ -11,6 +11,11 @@ lang: "es"
 seo:
   title: "Tracking de conversiones ligero: GA4 + Pixel sin afectar CWV"
   description: "Guia practica para configurar GA4 y Meta Pixel con eventos consistentes y carga no bloqueante."
+hero:
+  src: "/assets/img/blog-tracking-ligero.jpg"
+  alt: "Dashboard de analytics con graficas y laptop"
+  width: 1400
+  height: 900
 ---
 
 No necesitas romper el LCP para medir conversiones. El truco esta en ordenar los scripts y definir eventos consistentes.

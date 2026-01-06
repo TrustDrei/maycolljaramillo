@@ -46,6 +46,22 @@ const structuredData = [
         <span class="rounded-full border border-border/70 bg-panel px-3 py-1 text-xs text-foreground/80">{tag}</span>
       ))}
     </div>
+    {post.data.hero && (
+      <figure
+        class="mt-6 overflow-hidden rounded-2xl border border-border/70 bg-panel-strong"
+        style={`aspect-ratio: ${post.data.hero.width}/${post.data.hero.height};`}
+      >
+        <img
+          src={post.data.hero.src}
+          alt={post.data.hero.alt}
+          width={post.data.hero.width}
+          height={post.data.hero.height}
+          loading="eager"
+          decoding="async"
+          class="h-full w-full object-cover"
+        />
+      </figure>
+    )}
     <div class="mt-6 content">
       <Content />
     </div>

@@ -10,9 +10,14 @@ lang: "es"
 seo:
   title: "Checklist practico para reducir CLS sin romper UX"
   description: "Pasos accionables para eliminar CLS: placeholders, tamanos declarados y pruebas automatizadas."
+hero:
+  src: "/assets/img/blog-cls-checklist.jpg"
+  alt: "Diseno web en laptop con editor de codigo y componentes"
+  width: 1400
+  height: 900
 ---
 
-El CLS no se arregla “a ojo”. Necesita una lista corta de controles y verificaciones constantes. Este es el flujo que uso en proyectos de ecommerce y landing pages.
+El CLS no se arregla "a ojo". Necesita una lista corta de controles y verificaciones constantes. Este es el flujo que uso en proyectos de ecommerce y landing pages.
 
 ## 1) Inventario de elementos inestables
 

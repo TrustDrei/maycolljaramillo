@@ -1,5 +1,9 @@
 {
   "framework": "astro",
+  "redirects": [
+    { "source": "/", "destination": "/es", "permanent": true },
+    { "source": "/contact", "destination": "/es/contact", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

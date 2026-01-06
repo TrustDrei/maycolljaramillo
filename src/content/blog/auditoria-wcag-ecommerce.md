@@ -7,6 +7,11 @@ lang: "es"
 seo:
   title: "Auditoria WCAG en eCommerce: errores y soluciones | Maycoll Jaramillo"
   description: "Guia practica WCAG para eCommerce: foco visible, formularios, labels, contraste y navegacion por teclado."
+hero:
+  src: "/assets/img/blog-wcag-audit.jpg"
+  alt: "Personas revisando interfaces web en portatiles"
+  width: 1400
+  height: 900
 ---
 
 La accesibilidad en eCommerce falla casi siempre por lo mismo: **teclado**, **formularios** y **estados**.
