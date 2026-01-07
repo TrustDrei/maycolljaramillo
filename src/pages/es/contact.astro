@@ -4,6 +4,7 @@ import { CONTACT_CTA, SITE } from '../../config/site';
 import { PERSON } from '../../config/person';
 import { breadcrumbJsonLd } from '../../lib/seo';
 import Icon from '../../components/Icon.astro';
+import contactScript from '../../scripts/contact-form.ts?url';
 
 const structuredData = [
   breadcrumbJsonLd([
@@ -11,6 +12,9 @@ const structuredData = [
     { name: 'Contacto', path: '/es/contact' }
   ])
 ];
+
+const formEndpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '/api/contact';
+const formAccessKey = import.meta.env.PUBLIC_CONTACT_ACCESS_KEY ?? '';
 ---
 
 <BaseLayout
@@ -51,13 +55,16 @@ const structuredData = [
         class="mt-4 space-y-4"
         name="contact-es"
         method="POST"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
+        action={formEndpoint}
+        data-form-handler="contact"
+        data-form-lang="es"
+        data-form-endpoint={formEndpoint}
       >
-        <input type="hidden" name="form-name" value="contact-es" />
         <p class="visually-hidden">
           <label>Si eres humano, deja esto vacio <input name="bot-field" /></label>
         </p>
+        <input type="hidden" name="locale" value="es" />
+        {formAccessKey ? <input type="hidden" name="access_key" value={formAccessKey} /> : null}
         <div class="grid gap-4 sm:grid-cols-2">
           <label class="flex flex-col gap-2 text-sm text-foreground">
             Nombre
@@ -142,6 +149,7 @@ const structuredData = [
         >
           Enviar formulario
         </button>
+        <p class="mt-2 text-sm text-muted" data-form-status aria-live="polite"></p>
       </form>
     </div>
 
@@ -179,4 +187,5 @@ const structuredData = [
       </p>
     </div>
   </section>
+  <script type="module" src={contactScript}></script>
 </BaseLayout>
