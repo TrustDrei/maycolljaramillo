@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 
 const SITE_URL = process.env.SITE_URL ?? 'https://maycolljaramillo.com';
@@ -16,10 +15,8 @@ export default defineConfig({
   site: resolvedSite,
   base: normalizedBase,
   trailingSlash: 'never',
-  output: 'server',
-  adapter: vercel({
-    runtime: 'nodejs20.x'
-  }),
+  // Static output; Vercel will serve from dist and Node functions handle /api/*
+  output: 'static',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
