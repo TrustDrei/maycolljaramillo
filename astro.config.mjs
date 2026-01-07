@@ -17,7 +17,9 @@ export default defineConfig({
   base: normalizedBase,
   trailingSlash: 'never',
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    runtime: 'nodejs20.x'
+  }),
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]
