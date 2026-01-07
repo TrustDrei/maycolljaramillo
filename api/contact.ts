@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Resend } from 'resend';
-import { SITE } from '../src/config/site';
+const FALLBACK_CONTACT_TO = 'maycolljaramillo01@gmail.com';
 
 const escape = (value: unknown) =>
   String(value ?? '')
@@ -46,7 +46,7 @@ const parseBody = (req: VercelRequest) => {
 
 const resendApiKey = getEnv('RESEND_API_KEY');
 const resendFrom = getEnv('RESEND_FROM');
-const contactTo = getEnv('CONTACT_TO') || SITE.email;
+const contactTo = getEnv('CONTACT_TO') || FALLBACK_CONTACT_TO;
 const accessKey = getEnv('CONTACT_ACCESS_KEY');
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
