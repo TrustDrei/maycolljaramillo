@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Resend } from 'resend';
 const FALLBACK_CONTACT_TO = 'maycolljaramillo01@gmail.com';
-//
 const escape = (value: unknown) =>
   String(value ?? '')
     .replace(/&/g, '&amp;')
