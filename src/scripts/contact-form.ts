@@ -72,6 +72,20 @@ const getEndpoint = (form: HTMLFormElement) => {
   return null;
 };
 
+const collectFormData = (form: HTMLFormElement) => {
+  const formData = new FormData(form);
+  return {
+    name: formData.get('name')?.toString().trim() ?? '',
+    email: formData.get('email')?.toString().trim() ?? '',
+    project: formData.get('project')?.toString().trim() ?? '',
+    message: formData.get('message')?.toString().trim() ?? '',
+    locale: formData.get('locale')?.toString().trim() ?? form.getAttribute('data-form-lang') ?? 'es',
+    access_key: formData.get('access_key')?.toString().trim() ?? '',
+    captcha: formData.get('captcha')?.toString().trim() ?? '',
+    'bot-field': formData.get('bot-field')?.toString().trim() ?? ''
+  };
+};
+
 const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
   event.preventDefault();
 
@@ -92,10 +106,13 @@ const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
   setStatus(status, messages.sending);
 
   try {
+    const payload = collectFormData(form);
+
     const response = await fetch(endpoint, {
       method: 'POST',
-      body: new FormData(form),
+      body: JSON.stringify(payload),
       headers: {
+        'Content-Type': 'application/json',
         Accept: 'application/json'
       }
     });

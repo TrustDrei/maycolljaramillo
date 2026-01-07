@@ -12,6 +12,38 @@ const escape = (value: unknown) =>
 
 const getEnv = (key: string) => process.env[key] ?? '';
 
+const parseBody = (req: VercelRequest) => {
+  const body = req.body;
+  if (!body) return {};
+
+  if (typeof body === 'string') {
+    try {
+      return JSON.parse(body);
+    } catch {
+      try {
+        return Object.fromEntries(new URLSearchParams(body));
+      } catch {
+        return {};
+      }
+    }
+  }
+
+  if (Buffer.isBuffer(body)) {
+    const text = body.toString('utf8');
+    try {
+      return JSON.parse(text);
+    } catch {
+      try {
+        return Object.fromEntries(new URLSearchParams(text));
+      } catch {
+        return {};
+      }
+    }
+  }
+
+  return body as Record<string, unknown>;
+};
+
 const resendApiKey = getEnv('RESEND_API_KEY');
 const resendFrom = getEnv('RESEND_FROM');
 const contactTo = getEnv('CONTACT_TO') || SITE.email;
@@ -28,27 +60,29 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const honeypot = (req.body?.['bot-field'] as string)?.trim?.() ?? '';
+  const body = parseBody(req);
+
+  const honeypot = (body?.['bot-field'] as string)?.toString?.().trim?.() ?? '';
   if (honeypot) {
     res.status(200).json({ ok: true });
     return;
   }
 
-  if (accessKey && req.body?.access_key !== accessKey) {
+  if (accessKey && body?.['access_key'] !== accessKey) {
     res.status(403).json({ ok: false, message: 'Unauthorized' });
     return;
   }
 
-  if (req.body?.captcha && req.body.captcha !== '57') {
+  if (body?.['captcha'] && body['captcha'] !== '57') {
     res.status(400).json({ ok: false, message: 'Captcha failed' });
     return;
   }
 
-  const name = (req.body?.name as string)?.trim();
-  const email = (req.body?.email as string)?.trim();
-  const project = (req.body?.project as string)?.trim();
-  const message = (req.body?.message as string)?.trim();
-  const locale = (req.body?.locale as string)?.trim() || 'es';
+  const name = (body?.['name'] as string)?.toString?.().trim?.();
+  const email = (body?.['email'] as string)?.toString?.().trim?.();
+  const project = (body?.['project'] as string)?.toString?.().trim?.();
+  const message = (body?.['message'] as string)?.toString?.().trim?.();
+  const locale = (body?.['locale'] as string)?.toString?.().trim?.() || 'es';
 
   if (!name || !email || !message) {
     res.status(400).json({ ok: false, message: 'Missing required fields' });
