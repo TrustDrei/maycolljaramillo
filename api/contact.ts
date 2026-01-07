@@ -118,7 +118,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { error } = await resend.emails.send({
       from: resendFrom,
       to: contactTo,
-      reply_to: email,
+      replyTo: email,
       subject,
       text,
       html
