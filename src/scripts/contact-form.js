@@ -1,11 +1,4 @@
-type FormMessages = {
-  sending: string;
-  success: string;
-  error: string;
-  missing: string;
-};
-
-const DEFAULT_MESSAGES: Record<'es' | 'en', FormMessages> = {
+const DEFAULT_MESSAGES = {
   es: {
     sending: 'Enviando...',
     success: 'Gracias. Te respondere en menos de 24h.',
@@ -20,13 +13,13 @@ const DEFAULT_MESSAGES: Record<'es' | 'en', FormMessages> = {
   }
 };
 
-const getMessages = (form: HTMLFormElement): FormMessages => {
+const getMessages = (form) => {
   const lang = form.getAttribute('data-form-lang') === 'en' ? 'en' : 'es';
   return DEFAULT_MESSAGES[lang];
 };
 
-const ensureStatusElement = (form: HTMLFormElement): HTMLElement => {
-  let status = form.querySelector<HTMLElement>('[data-form-status]');
+const ensureStatusElement = (form) => {
+  let status = form.querySelector('[data-form-status]');
   if (!status) {
     status = document.createElement('p');
     status.setAttribute('data-form-status', 'true');
@@ -37,14 +30,14 @@ const ensureStatusElement = (form: HTMLFormElement): HTMLElement => {
   return status;
 };
 
-const setStatus = (status: HTMLElement, message: string) => {
+const setStatus = (status, message) => {
   status.textContent = message;
 };
 
 const setBusyState = (
-  form: HTMLFormElement,
-  button: HTMLButtonElement | null,
-  isBusy: boolean
+  form,
+  button,
+  isBusy
 ) => {
   if (isBusy) {
     form.setAttribute('aria-busy', 'true');
@@ -59,12 +52,12 @@ const setBusyState = (
   }
 };
 
-const isHoneypotFilled = (form: HTMLFormElement) => {
-  const honeypot = form.querySelector<HTMLInputElement>('[name="bot-field"]');
+const isHoneypotFilled = (form) => {
+  const honeypot = form.querySelector('[name="bot-field"]');
   return Boolean(honeypot?.value?.trim());
 };
 
-const getEndpoint = (form: HTMLFormElement) => {
+const getEndpoint = (form) => {
   const dataEndpoint = form.getAttribute('data-form-endpoint');
   if (dataEndpoint) return dataEndpoint;
   const action = form.getAttribute('action');
@@ -72,7 +65,7 @@ const getEndpoint = (form: HTMLFormElement) => {
   return null;
 };
 
-const collectFormData = (form: HTMLFormElement) => {
+const collectFormData = (form) => {
   const formData = new FormData(form);
   return {
     name: formData.get('name')?.toString().trim() ?? '',
@@ -86,7 +79,7 @@ const collectFormData = (form: HTMLFormElement) => {
   };
 };
 
-const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
+const handleSubmit = async (event, form) => {
   event.preventDefault();
 
   if (form.hasAttribute('data-form-sending')) return;
@@ -95,7 +88,7 @@ const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
   const messages = getMessages(form);
   const status = ensureStatusElement(form);
   const endpoint = getEndpoint(form);
-  const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const submitButton = form.querySelector('button[type="submit"]');
 
   if (!endpoint) {
     setStatus(status, messages.missing);
@@ -106,19 +99,19 @@ const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
   setStatus(status, messages.sending);
 
   try {
-    const payload = collectFormData(form);
+    const requestPayload = collectFormData(form);
 
     const response = await fetch(endpoint, {
       method: 'POST',
-      body: JSON.stringify(payload),
+      body: JSON.stringify(requestPayload),
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json'
       }
     });
 
-    const payload = await response.json().catch(() => null);
-    const ok = response.ok || payload?.ok === true;
+    const responsePayload = await response.json().catch(() => null);
+    const ok = response.ok || responsePayload?.ok === true;
 
     if (ok) {
       setStatus(status, messages.success);
@@ -127,8 +120,11 @@ const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
     }
 
     setStatus(status, messages.error);
-    if (payload?.errors || payload?.message) {
-      console.warn('Form submission error', payload?.errors ?? payload?.message ?? payload);
+    if (responsePayload?.errors || responsePayload?.message) {
+      console.warn(
+        'Form submission error',
+        responsePayload?.errors ?? responsePayload?.message ?? responsePayload
+      );
     }
   } catch (error) {
     console.warn('Form submission failed', error);
@@ -139,7 +135,7 @@ const handleSubmit = async (event: SubmitEvent, form: HTMLFormElement) => {
 };
 
 const initContactForms = () => {
-  const forms = document.querySelectorAll<HTMLFormElement>('form[data-form-handler="contact"]');
+  const forms = document.querySelectorAll('form[data-form-handler="contact"]');
   if (!forms.length) return;
 
   forms.forEach((form) => {
