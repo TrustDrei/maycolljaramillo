@@ -59,7 +59,7 @@ const langOptions = [
         const active = isActive(item.href);
         return (
           <a
-            class={`inline-flex items-center border-2 px-3 py-1.5 font-extrabold uppercase tracking-wide transition ${active ? 'border-ink bg-accent text-[var(--on-accent)]' : 'border-transparent text-foreground hover:border-ink hover:bg-panel'}`}
+            class={`inline-flex items-center border-2 px-3 py-1.5 font-extrabold uppercase tracking-wide transition ${active ? 'border-ink bg-accent text-on-accent' : 'border-transparent text-foreground hover:border-ink hover:bg-panel'}`}
             href={item.href}
             aria-current={active ? 'page' : undefined}
           >
@@ -72,7 +72,7 @@ const langOptions = [
     <div class="hidden items-center gap-3 lg:flex">
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center border border-ink bg-panel text-foreground transition hover:border-accent hover:-rotate-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-on-accent active:translate-x-[2px] active:translate-y-[2px]"
         data-theme-toggle
         aria-label={themeLabel}
         aria-pressed="false"
@@ -95,7 +95,7 @@ const langOptions = [
           <a
             class={`px-3 py-2 text-sm font-extrabold uppercase transition ${
               option.code === lang
-                ? 'bg-accent text-[var(--on-accent)]'
+                ? 'bg-accent text-on-accent'
                 : 'bg-panel text-foreground hover:bg-panel-strong'
             }`}
             href={option.href}
@@ -120,7 +120,7 @@ const langOptions = [
     <div class="flex items-center gap-2 lg:hidden">
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-[var(--on-accent)] active:translate-x-[2px] active:translate-y-[2px]"
+        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-on-accent active:translate-x-[2px] active:translate-y-[2px]"
         data-theme-toggle
         aria-label={themeLabel}
         aria-pressed="false"
@@ -132,7 +132,7 @@ const langOptions = [
       </button>
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-[var(--on-accent)] active:translate-x-[2px] active:translate-y-[2px]"
+        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-on-accent active:translate-x-[2px] active:translate-y-[2px]"
         aria-expanded="false"
         aria-controls="mobile-nav"
         data-nav-toggle
@@ -152,7 +152,7 @@ const langOptions = [
         return (
           <a
             class={`border-2 border-ink px-3 py-2.5 font-extrabold uppercase tracking-wide transition ${
-              active ? 'bg-accent text-[var(--on-accent)]' : 'bg-panel text-foreground'
+              active ? 'bg-accent text-on-accent' : 'bg-panel text-foreground'
             }`}
             href={item.href}
             aria-current={active ? 'page' : undefined}
@@ -166,7 +166,7 @@ const langOptions = [
           <a
             class={`flex-1 px-3 py-2.5 text-center font-extrabold uppercase transition ${
               option.code === lang
-                ? 'bg-accent text-[var(--on-accent)]'
+                ? 'bg-accent text-on-accent'
                 : 'bg-panel text-foreground'
             }`}
             href={option.href}
