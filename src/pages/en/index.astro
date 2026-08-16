@@ -8,6 +8,8 @@ import { CONTACT_CTA, SITE } from '../../config/site';
 import { PERSON } from '../../config/person';
 import { breadcrumbJsonLd } from '../../lib/seo';
 import Icon from '../../components/Icon.astro';
+import { Image } from 'astro:assets';
+import profilePhoto from '../../assets/profile.png';
 
 const caseStudies = (await getCollection('case-studies')).sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
@@ -127,7 +129,7 @@ const structuredData = [
   structuredData={structuredData}
 >
   <section class="page-width px-4 pt-10 md:px-0 lg:pt-14">
-    <div class="grid gap-8 lg:grid-cols-[1.25fr,0.75fr] lg:items-start">
+    <div class="grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
       <div class="space-y-6">
         <p class="section-title">Automation · Technical SEO · Accessibility</p>
         <h1 class="text-foreground">
@@ -171,11 +173,11 @@ const structuredData = [
 
       <div class="space-y-6">
         <figure class="brut-frame aspect-square w-full">
-          <img
-            src="/images/profile.jpg"
+          <Image
+            src={profilePhoto}
             alt={`Portrait of ${PERSON.shortName}`}
-            width="800"
-            height="800"
+            widths={[320, 460, 640]}
+            sizes="(min-width: 1024px) 24rem, 100vw"
             loading="eager"
             fetchpriority="high"
             decoding="async"
@@ -276,7 +278,7 @@ const structuredData = [
 
   <section class="mx-auto max-w-6xl px-4 py-12 md:px-6 lg:py-16">
     <div class="section-shell">
-      <div class="grid gap-6 lg:grid-cols-[1.4fr,0.9fr] lg:items-start">
+      <div class="grid gap-6 lg:grid-cols-[1.4fr_0.9fr] lg:items-start">
         <div class="space-y-3">
           <p class="section-title">Featured work</p>
           <h2 class="text-3xl font-semibold text-foreground">STAR: situation, task, action, result</h2>

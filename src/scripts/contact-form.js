@@ -1,14 +1,16 @@
 const DEFAULT_MESSAGES = {
   es: {
     sending: 'Enviando...',
-    success: 'Gracias. Te respondere en menos de 24h.',
+    success: 'Gracias. Te responderé en menos de 24h.',
     error: 'No se pudo enviar. Intenta de nuevo.',
-    missing: 'Falta configurar el endpoint de envio.'
+    rateLimited: 'Demasiados envíos seguidos. Prueba en unos minutos o escríbeme por WhatsApp.',
+    missing: 'Falta configurar el endpoint de envío.'
   },
   en: {
     sending: 'Sending...',
     success: "Thanks. I'll reply within one business day.",
     error: 'Unable to send. Please try again.',
+    rateLimited: 'Too many submissions in a row. Try again in a few minutes, or reach me on WhatsApp.',
     missing: 'Missing form endpoint.'
   }
 };
@@ -74,7 +76,6 @@ const collectFormData = (form) => {
     message: formData.get('message')?.toString().trim() ?? '',
     locale: formData.get('locale')?.toString().trim() ?? form.getAttribute('data-form-lang') ?? 'es',
     access_key: formData.get('access_key')?.toString().trim() ?? '',
-    captcha: formData.get('captcha')?.toString().trim() ?? '',
     'bot-field': formData.get('bot-field')?.toString().trim() ?? ''
   };
 };
@@ -119,7 +120,7 @@ const handleSubmit = async (event, form) => {
       return;
     }
 
-    setStatus(status, messages.error);
+    setStatus(status, response.status === 429 ? messages.rateLimited : messages.error);
     if (responsePayload?.errors || responsePayload?.message) {
       console.warn(
         'Form submission error',

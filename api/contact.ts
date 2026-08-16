@@ -48,6 +48,40 @@ const resendFrom = getEnv('RESEND_FROM');
 const contactTo = getEnv('CONTACT_TO') || FALLBACK_CONTACT_TO;
 const accessKey = getEnv('CONTACT_ACCESS_KEY');
 
+const LIMITS = { name: 120, email: 254, project: 60, message: 5000, locale: 5 };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+const RATE_MAX = 3;
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+// ponytail: ventana en memoria, por instancia. Se reinicia en cold start y no
+// se comparte entre lambdas, así que el techo real es RATE_MAX * nº instancias.
+// Frena el abuso trivial; si hace falta un límite duro, mover a Vercel KV/Upstash.
+const hits = new Map<string, number[]>();
+
+const clientIp = (req: VercelRequest) => {
+  const fwd = req.headers['x-forwarded-for'];
+  const raw = Array.isArray(fwd) ? fwd[0] : fwd;
+  return raw?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+};
+
+const isRateLimited = (ip: string) => {
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (recent.length >= RATE_MAX) {
+    hits.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  hits.set(ip, recent);
+  // Poda perezosa: evita que el Map crezca sin límite en instancias longevas.
+  if (hits.size > 5000) {
+    for (const [key, stamps] of hits) {
+      if (stamps.every((t) => now - t >= RATE_WINDOW_MS)) hits.delete(key);
+    }
+  }
+  return false;
+};
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     res.status(405).json({ ok: false, message: 'Method not allowed' });
@@ -72,23 +106,45 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  if (body?.['captcha'] && body['captcha'] !== '57') {
-    res.status(400).json({ ok: false, message: 'Captcha failed' });
+  // Tras el honeypot para no gastar cuota en bots evidentes, y antes de Resend.
+  if (isRateLimited(clientIp(req))) {
+    res.setHeader('Retry-After', String(RATE_WINDOW_MS / 1000));
+    res.status(429).json({ ok: false, message: 'Too many requests' });
     return;
   }
 
-  const name = (body?.['name'] as string)?.toString?.().trim?.();
-  const email = (body?.['email'] as string)?.toString?.().trim?.();
-  const project = (body?.['project'] as string)?.toString?.().trim?.();
-  const message = (body?.['message'] as string)?.toString?.().trim?.();
-  const locale = (body?.['locale'] as string)?.toString?.().trim?.() || 'es';
+  const field = (key: string) => (body?.[key] as string)?.toString?.().trim?.() ?? '';
+  const name = field('name');
+  const email = field('email');
+  const project = field('project');
+  const message = field('message');
+  const locale = field('locale') || 'es';
 
   if (!name || !email || !message) {
     res.status(400).json({ ok: false, message: 'Missing required fields' });
     return;
   }
 
-  const subject = `Contacto (${locale}) - ${name}`;
+  if (!EMAIL_RE.test(email)) {
+    res.status(400).json({ ok: false, message: 'Invalid email' });
+    return;
+  }
+
+  // Tope de longitud: sin esto, un POST puede empujar megabytes al correo.
+  const tooLong = Object.entries({ name, email, project, message, locale }).find(
+    ([key, value]) => value.length > LIMITS[key as keyof typeof LIMITS]
+  );
+  if (tooLong) {
+    res.status(400).json({ ok: false, message: `Field too long: ${tooLong[0]}` });
+    return;
+  }
+
+  // El asunto va a una cabecera SMTP: sin filtrar CR/LF se puede inyectar
+  // cabeceras extra (Bcc, Reply-To) desde el campo nombre.
+  const safeName = name.replace(/[\r\n]+/g, ' ');
+  const safeLocale = locale.replace(/[^a-z-]/gi, '');
+
+  const subject = `Contacto (${safeLocale}) - ${safeName}`;
   const text = [
     `Nombre: ${name}`,
     `Email: ${email}`,
