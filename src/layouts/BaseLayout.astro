@@ -66,12 +66,27 @@ const defaultStructuredData: StructuredData[] = [
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    />
     <link rel="alternate" hreflang="x-default" href={new URL('/es', SITE_ORIGIN).toString()} />
+    <script is:inline>
+      // Bloqueante y en el head a propósito: aplicar el tema desde un módulo
+      // diferido al final del body provocaba un flash oscuro en cada carga.
+      (() => {
+        const stored = localStorage.getItem('theme-preference');
+        const dark =
+          stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.classList.add(dark ? 'theme-dark' : 'theme-light');
+      })();
+    </script>
   </head>
-  <body class="bg-surface text-foreground antialiased" data-animate-text>
+  <body class="bg-surface text-foreground antialiased">
     <a
       href="#main"
-      class="sr-only bg-accent px-3 py-2 font-semibold text-surface focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:outline-none"
+      class="sr-only btn btn-primary focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50"
     >
       {lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}
     </a>

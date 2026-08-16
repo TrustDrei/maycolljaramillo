@@ -65,12 +65,12 @@ const detailHref = lang === 'en' ? `/en/work/${study.slug}` : `/work/${study.slu
 
 <article class="card flex h-full flex-col gap-4 p-5 lift-in">
   <header class="flex flex-wrap items-start justify-between gap-3">
-    <div class="space-y-1">
-      <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{t.case}</p>
-      <h3 class="text-lg font-semibold text-foreground">{localized.title}</h3>
-      <p class="text-sm text-muted">{localized.industry} | {localized.role}</p>
+    <div class="space-y-2">
+      <p class="eyebrow">{t.case}</p>
+      <h3 class="text-xl font-extrabold uppercase leading-tight tracking-tight text-foreground">{localized.title}</h3>
+      <p class="text-sm font-semibold text-muted">{localized.industry} · {localized.role}</p>
     </div>
-    <span class="rounded-full border border-border/60 bg-panel px-3 py-1 text-xs font-semibold text-foreground/90">
+    <span class="chip">
       {statusLabel[study.data.status] ?? study.data.status}
     </span>
   </header>
@@ -92,7 +92,7 @@ const detailHref = lang === 'en' ? `/en/work/${study.slug}` : `/work/${study.slu
     <p class="text-[11px] uppercase tracking-[0.14em] text-muted">{t.stack}</p>
     <div class="flex flex-wrap gap-2">
       {study.data.stack.map((tech) => (
-        <span class="rounded-full border border-border/60 bg-panel px-3 py-1.5 text-xs text-foreground/85">{tech}</span>
+        <span class="chip text-xs">{tech}</span>
       ))}
     </div>
   </div>
@@ -102,20 +102,20 @@ const detailHref = lang === 'en' ? `/en/work/${study.slug}` : `/work/${study.slu
     <ul class="space-y-2 text-sm leading-relaxed text-foreground/85">
       {localized.highlights.slice(0, 2).map((item) => (
         <li class="flex items-start gap-2">
-          <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+          <span class="mt-1.5 inline-block h-2 w-2 border border-ink bg-accent"></span>
           <span>{item}</span>
         </li>
       ))}
     </ul>
   </div>
 
-  <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-3">
-    <div>
-      <p class="text-[11px] uppercase tracking-[0.14em] text-muted">{t.result}</p>
-      <span class="text-sm font-semibold text-foreground/90">{outcome}</span>
+  <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t-2 border-ink pt-4">
+    <div class="max-w-[60%]">
+      <p class="text-[11px] font-extrabold uppercase tracking-[0.14em] text-muted">{t.result}</p>
+      <span class="text-sm font-extrabold text-accent">{outcome}</span>
     </div>
     <a
-      class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      class="btn btn-ghost"
       href={detailHref}
     >
       {t.cta}

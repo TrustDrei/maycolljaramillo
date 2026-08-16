@@ -16,14 +16,14 @@ const secondaryLinks = [
 ];
 ---
 
-<footer class="mt-16 border-t border-border/70 bg-panel px-4 py-14 text-sm text-muted">
+<footer class="mt-16 border-t-[3px] border-ink bg-panel px-4 py-14 text-sm text-muted">
   <div class="page-width space-y-12">
     <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
       <div class="flex items-center gap-3">
-        <div class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-border/70 bg-panel-strong">
+        <div class="flex h-12 w-12 items-center justify-center overflow-hidden border-2 border-ink bg-panel-strong">
           <img
             src="/images/logo-128.png"
-            alt={PERSON.shortName}
+            alt=""
             width="128"
             height="128"
             loading="lazy"
@@ -32,30 +32,30 @@ const secondaryLinks = [
           />
         </div>
         <div>
-          <p class="text-lg font-semibold text-foreground">{PERSON.shortName}</p>
-          <p class="text-foreground/70 text-sm">
+          <p class="text-xl font-extrabold uppercase tracking-tight text-foreground">{PERSON.shortName}</p>
+          <p class="text-sm font-semibold text-muted">
             {lang === 'es'
-              ? 'SEO tecnico, accesibilidad y automatizacion'
+              ? 'SEO técnico, accesibilidad y automatización'
               : 'Technical SEO, accessibility, automation'}
           </p>
         </div>
       </div>
       <div class="flex flex-wrap gap-3">
         <a
-          class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          class="btn btn-primary"
           href={CONTACT_CTA.primary.href}
         >
           <Icon name="whatsapp" label="WhatsApp" />
           {lang === 'es' ? 'Hablar ahora' : 'Chat now'}
         </a>
         <a
-          class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          class="btn btn-ghost"
           href={`mailto:${SITE.email}`}
         >
           {lang === 'es' ? 'Correo' : 'Email'}
         </a>
         <a
-          class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          class="btn btn-ghost"
           href={SITE.social.github}
           target="_blank"
           rel="noopener"
@@ -64,7 +64,7 @@ const secondaryLinks = [
           GitHub
         </a>
         <a
-          class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          class="btn btn-ghost"
           href={SITE.social.linkedin}
           target="_blank"
           rel="noopener"
@@ -76,12 +76,12 @@ const secondaryLinks = [
 
     <div class="grid gap-10 md:grid-cols-4">
       <div>
-        <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{lang === 'es' ? 'Mapa' : 'Site'}</p>
+        <p class="eyebrow">{lang === 'es' ? 'Mapa' : 'Site'}</p>
         <ul class="mt-3 space-y-2">
           {links.map((item) => (
             <li>
               <a
-                class="inline-flex items-center gap-2 rounded-md px-1 py-1 text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                class="font-semibold text-foreground hover:text-accent"
                 href={item.href}
               >
                 {item.label}
@@ -92,11 +92,11 @@ const secondaryLinks = [
       </div>
 
       <div>
-        <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{lang === 'es' ? 'Contacto' : 'Contact'}</p>
+        <p class="eyebrow">{lang === 'es' ? 'Contacto' : 'Contact'}</p>
         <ul class="mt-3 space-y-2 text-foreground/80">
           <li>
             <a
-              class="inline-flex items-center gap-2 rounded-md px-1 py-1 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              class="font-semibold text-foreground hover:text-accent"
               href={`mailto:${SITE.email}`}
             >
               {SITE.email}
@@ -104,14 +104,14 @@ const secondaryLinks = [
           </li>
           <li>
             <a
-              class="inline-flex items-center gap-2 rounded-md px-1 py-1 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              class="font-semibold text-foreground hover:text-accent"
               href={`tel:${SITE.phone.replace(/\s+/g, '')}`}
             >
               {SITE.phone}
             </a>
           </li>
           <li>
-            <span class="rounded-md px-1 py-1 text-foreground/70">
+            <span class="px-1 py-1 text-foreground/70">
               {lang === 'es' ? 'Managua (UTC-6)' : 'Managua (UTC-6)'}
             </span>
           </li>
@@ -119,12 +119,12 @@ const secondaryLinks = [
       </div>
 
       <div>
-        <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{lang === 'es' ? 'Legal' : 'Legal'}</p>
+        <p class="eyebrow">{lang === 'es' ? 'Legal' : 'Legal'}</p>
         <ul class="mt-3 space-y-2">
           {secondaryLinks.map((item) => (
             <li>
               <a
-                class="inline-flex items-center gap-2 rounded-md px-1 py-1 text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                class="font-semibold text-foreground hover:text-accent"
                 href={item.href}
               >
                 {item.label}
@@ -135,13 +135,13 @@ const secondaryLinks = [
       </div>
 
       <div>
-        <p class="text-[11px] uppercase tracking-[0.18em] text-accent">
+        <p class="eyebrow">
           {lang === 'es' ? 'Disponibilidad' : 'Availability'}
         </p>
         <ul class="mt-3 space-y-2 text-foreground/80">
-          <li>{lang === 'es' ? 'Respuesta <24h habiles' : '<24h response (business)'}</li>
+          <li>{lang === 'es' ? 'Respuesta <24h hábiles' : '<24h response (business)'}</li>
           <li>{lang === 'es' ? 'Proyectos LATAM / UE / US' : 'Projects LATAM / EU / US'}</li>
-          <li>{lang === 'es' ? 'SEO tecnico, performance, accesibilidad' : 'Technical SEO, performance, accessibility'}</li>
+          <li>{lang === 'es' ? 'SEO técnico, performance, accesibilidad' : 'Technical SEO, performance, accessibility'}</li>
         </ul>
       </div>
     </div>

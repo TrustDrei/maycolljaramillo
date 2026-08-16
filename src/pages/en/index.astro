@@ -126,95 +126,96 @@ const structuredData = [
   alternates={[{ lang: 'es', path: '/es' }]}
   structuredData={structuredData}
 >
-  <section class="mx-auto max-w-6xl px-4 pt-12 md:px-6 lg:pt-16">
-    <div class="relative overflow-hidden rounded-[32px] border border-border/70 bg-panel/90 p-6 shadow-soft lg:p-8">
-      <div class="relative grid gap-10 lg:grid-cols-[1.15fr,0.95fr] lg:items-center">
-        <div class="space-y-6">
-          <p class="section-title">Automation · Technical SEO · Accessibility</p>
-          <h1 class="lcp-target text-balance text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
-            Systems engineering applied to web platforms and automation
-          </h1>
-          <p class="max-w-2xl text-lg leading-relaxed text-muted">
-            Senior Systems Engineer. I design, audit, and harden web platforms and backends in enterprise environments with a focus on automation, technical SEO, accessibility, and measurable performance.
-          </p>
-          <p class="max-w-2xl text-muted">
-            Architect and developer for production platforms across LATAM and Europe. I combine web infrastructure, data control, and technical documentation for frictionless handoff.
-          </p>
-          <div class="flex flex-wrap items-center gap-3">
-            <a
-              class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
-              href={CONTACT_CTA.primary.href}
-            >
-              <Icon name="whatsapp" label="WhatsApp" />
-              WhatsApp
-            </a>
-            <a
-              class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-5 py-3 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              href="/work"
-            >
-              View case studies
-            </a>
+  <section class="page-width px-4 pt-10 md:px-0 lg:pt-14">
+    <div class="grid gap-8 lg:grid-cols-[1.25fr,0.75fr] lg:items-start">
+      <div class="space-y-6">
+        <p class="section-title">Automation · Technical SEO · Accessibility</p>
+        <h1 class="text-foreground">
+          Systems engineering applied to web platforms and automation
+        </h1>
+        <p class="lead max-w-2xl">
+          Senior Systems Engineer. I design, audit, and harden web platforms and backends in enterprise environments with a focus on automation, technical SEO, accessibility, and measurable performance.
+        </p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a class="btn btn-primary btn-lg" href={CONTACT_CTA.primary.href}>
+            <Icon name="whatsapp" label="WhatsApp" />
+            WhatsApp
+          </a>
+          <a class="btn btn-ghost btn-lg" href="/en/work">View case studies</a>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="stat">
+            <span class="stat-value">0.14 → 0.04</span>
+            <span class="stat-label">CLS · Shopify</span>
           </div>
-          <div class="grid gap-3 sm:grid-cols-2">
-            <div class="rounded-2xl border border-border/70 bg-panel p-4">
-              <p class="text-[11px] uppercase tracking-[0.16em] text-muted">Delivery criteria</p>
-              <p class="text-sm font-semibold text-foreground">Per-template checklist: CWV, accessibility, technical SEO, tracking.</p>
-              <p class="text-sm text-muted">Staging validation and documented QA.</p>
-            </div>
-            <div class="rounded-2xl border border-border/70 bg-panel p-4">
-              <p class="text-[11px] uppercase tracking-[0.16em] text-muted">Operations</p>
-              <p class="text-sm font-semibold text-foreground">Automation, logging, and deduplication.</p>
-              <p class="text-sm text-muted">Resilient backends and handover guides.</p>
-            </div>
+          <div class="stat">
+            <span class="stat-value">3.1s → 2.4s</span>
+            <span class="stat-label">LCP p75 mobile</span>
           </div>
-          <div class="flex flex-wrap gap-2">
-            <span class="badge">Automation / n8n</span>
-            <span class="badge">AEM / WordPress</span>
-            <span class="badge">Shopify / Liquid</span>
-            <span class="badge">Core Web Vitals</span>
-            <span class="badge">Accessibility WCAG</span>
-            <span class="badge">Technical SEO / hreflang</span>
+          <div class="stat">
+            <span class="stat-value">−32%</span>
+            <span class="stat-label">Non-critical JS</span>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <div class="flex items-center gap-4 rounded-2xl border border-border/70 bg-panel p-4 shadow-soft">
-            <img
-              src="/images/person-128.png"
-              alt={`Portrait of ${PERSON.shortName}`}
-              class="h-16 w-16 rounded-full object-cover shadow-soft"
-              width="128"
-              height="128"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-            />
-            <div>
-              <p class="text-sm font-semibold text-foreground">{PERSON.shortName}</p>
-              <p class="text-xs uppercase tracking-[0.14em] text-muted">{PERSON.headline.en}</p>
-              <p class="text-xs text-muted">Managua, Nicaragua · remote LATAM / EU / US.</p>
-            </div>
-          </div>
-          <div class="card p-5 lg:p-6">
-            <p class="text-xs uppercase tracking-[0.18em] text-accent">Delivery checklist</p>
-            <ul class="mt-3 space-y-2.5 text-sm leading-relaxed text-foreground/90">
-              <li>Architecture and hardening per platform (WordPress/AEM/React/Node).</li>
-              <li>Structured data and indexation control: sitemaps, hreflang, canonicals.</li>
-              <li>WCAG accessibility with visible focus, keyboard, and semantics.</li>
-              <li>Automation with n8n and WhatsApp API; opt-in and event logs.</li>
-              <li>QA, documentation, and handoff for marketing/content teams.</li>
-            </ul>
-          </div>
-          <div class="card space-y-4 p-5 lg:p-6">
-            <p class="text-xs uppercase tracking-[0.18em] text-accent">Validation</p>
-            <ul class="space-y-2.5 text-sm leading-relaxed text-foreground/90">
-              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>Focus order, landmarks, and keyboard support in menus, modals, and forms.</span></li>
-              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>Canonicals, hreflang, and sitemaps consistent per template.</span></li>
-              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>Font/image preload and critical CSS sized for stability.</span></li>
-              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>GA4/Pixel events without duplication or render blocking.</span></li>
-            </ul>
-          </div>
+        <div class="flex flex-wrap gap-2">
+          <span class="chip">Automation / n8n</span>
+          <span class="chip">AEM / WordPress</span>
+          <span class="chip">Shopify / Liquid</span>
+          <span class="chip">Core Web Vitals</span>
+          <span class="chip">Accessibility WCAG</span>
+          <span class="chip">Technical SEO / hreflang</span>
         </div>
+      </div>
+
+      <div class="space-y-6">
+        <figure class="brut-frame aspect-square w-full">
+          <img
+            src="/images/profile.jpg"
+            alt={`Portrait of ${PERSON.shortName}`}
+            width="800"
+            height="800"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+        <div class="panel p-4">
+          <p class="text-lg font-extrabold uppercase tracking-tight text-foreground">{PERSON.shortName}</p>
+          <p class="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-accent">{PERSON.headline.en}</p>
+          <p class="mt-2 text-sm text-muted">Managua, Nicaragua · remote LATAM / EU / US.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip" role="presentation">
+    <div class="page-width overflow-hidden text-ellipsis">
+      CWV · WCAG 2.2 · HREFLANG · JSON-LD · N8N · WHATSAPP API · SHOPIFY LIQUID · AEM · GA4
+    </div>
+  </div>
+
+  <section class="page-width px-4 md:px-0">
+    <div class="grid gap-5 md:grid-cols-2">
+      <div class="card p-6">
+        <p class="eyebrow">Delivery checklist</p>
+        <ul class="mt-4 space-y-3 text-sm leading-relaxed text-foreground/90">
+          <li>Architecture and hardening per platform (WordPress/AEM/React/Node).</li>
+          <li>Structured data and indexation control: sitemaps, hreflang, canonicals.</li>
+          <li>WCAG accessibility with visible focus, keyboard, and semantics.</li>
+          <li>Automation with n8n and WhatsApp API; opt-in and event logs.</li>
+          <li>QA, documentation, and handoff for marketing/content teams.</li>
+        </ul>
+      </div>
+      <div class="card p-6">
+        <p class="eyebrow">Validation</p>
+        <ul class="mt-4 space-y-3 text-sm leading-relaxed text-foreground/90">
+          <li class="flex items-start gap-3"><span aria-hidden="true" class="mt-1.5 block h-2 w-2 shrink-0 border border-ink bg-accent"></span><span>Focus order, landmarks, and keyboard support in menus, modals, and forms.</span></li>
+          <li class="flex items-start gap-3"><span aria-hidden="true" class="mt-1.5 block h-2 w-2 shrink-0 border border-ink bg-accent"></span><span>Canonicals, hreflang, and sitemaps consistent per template.</span></li>
+          <li class="flex items-start gap-3"><span aria-hidden="true" class="mt-1.5 block h-2 w-2 shrink-0 border border-ink bg-accent"></span><span>Font/image preload and critical CSS sized for stability.</span></li>
+          <li class="flex items-start gap-3"><span aria-hidden="true" class="mt-1.5 block h-2 w-2 shrink-0 border border-ink bg-accent"></span><span>GA4/Pixel events without duplication or render blocking.</span></li>
+        </ul>
       </div>
     </div>
   </section>
@@ -281,30 +282,30 @@ const structuredData = [
           <h2 class="text-3xl font-semibold text-foreground">STAR: situation, task, action, result</h2>
           <p class="max-w-3xl text-muted leading-relaxed">Verifiable outcomes. Metrics are shared publicly or on request with proper context.</p>
           <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+            <div class="border border-ink bg-panel p-3 text-sm text-foreground/90">
               <p class="text-[11px] uppercase tracking-[0.16em] text-accent">S - Situation</p>
               <p class="mt-1 text-muted">Real constraints and context.</p>
             </div>
-            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+            <div class="border border-ink bg-panel p-3 text-sm text-foreground/90">
               <p class="text-[11px] uppercase tracking-[0.16em] text-accent">T - Task</p>
               <p class="mt-1 text-muted">Measurable goals and templates.</p>
             </div>
-            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+            <div class="border border-ink bg-panel p-3 text-sm text-foreground/90">
               <p class="text-[11px] uppercase tracking-[0.16em] text-accent">A - Action</p>
               <p class="mt-1 text-muted">Technical changes, QA, documentation.</p>
             </div>
-            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+            <div class="border border-ink bg-panel p-3 text-sm text-foreground/90">
               <p class="text-[11px] uppercase tracking-[0.16em] text-accent">R - Result</p>
               <p class="mt-1 text-muted">KPIs shared or on request.</p>
             </div>
           </div>
         </div>
         <div class="flex flex-col gap-3 lg:items-end">
-          <span class="inline-flex items-center gap-2 self-start rounded-full border border-border/70 bg-panel px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent lg:self-end">
+          <span class="btn btn-ghost self-start">
             Verifiable outcomes
           </span>
           <a
-            class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            class="btn btn-ghost"
             href="/work"
           >
             View all
@@ -328,7 +329,7 @@ const structuredData = [
           <p class="max-w-3xl text-muted leading-relaxed">Practical guides and validated patterns for product and marketing teams.</p>
         </div>
         <a
-          class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          class="btn btn-ghost"
           href="/en/blog"
         >
           View blog
@@ -343,7 +344,7 @@ const structuredData = [
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6">
-    <div class="rounded-[28px] border border-border/70 bg-panel p-6 shadow-soft md:p-8">
+    <div class="border border-ink bg-panel p-6 md:p-8">
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div class="space-y-2">
           <p class="section-title">Next</p>
@@ -354,14 +355,14 @@ const structuredData = [
         </div>
         <div class="flex flex-wrap gap-3">
           <a
-            class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+            class="btn btn-primary"
             href={CONTACT_CTA.primary.href}
           >
             <Icon name="whatsapp" label="WhatsApp" />
             WhatsApp
           </a>
           <a
-            class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            class="btn btn-ghost"
             href="/en/services"
           >
             View services

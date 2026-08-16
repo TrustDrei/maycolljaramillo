@@ -49,7 +49,7 @@ const structuredData = [
         <p class="text-xs uppercase tracking-[0.12em] text-muted">Stack</p>
         <div class="mt-2 flex flex-wrap gap-2">
           {study.data.stack.map((item) => (
-            <span class="rounded-full border border-border/70 bg-panel px-3 py-1 text-xs text-foreground/85">{item}</span>
+            <span class="border border-ink bg-panel px-3 py-1 text-xs text-foreground/85">{item}</span>
           ))}
         </div>
       </div>
@@ -73,7 +73,7 @@ const structuredData = [
         <ul class="mt-2 space-y-2 text-muted">
           {study.data.results.map((result) => (
             <li class="flex items-start gap-2">
-              <span class="mt-1 inline-block h-2 w-2 rounded-full bg-accent"></span>
+              <span class="mt-1 inline-block h-2 w-2 bg-accent"></span>
               <span>{result}</span>
             </li>
           ))}

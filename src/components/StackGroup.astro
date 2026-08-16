@@ -34,7 +34,7 @@ const {
       <p class="section-title">{heading}</p>
       {description && <p class="max-w-3xl text-muted leading-relaxed">{description}</p>}
     </div>
-    <div class="hidden rounded-full border border-border/70 bg-panel px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent md:inline-flex">
+    <div class="hidden eyebrow md:inline-block">
       {tagLabel}
     </div>
   </div>
@@ -64,7 +64,7 @@ const {
               <ul class="space-y-2 text-sm leading-relaxed text-muted">
                 {group.proofs.map((proof) => (
                   <li class="flex items-start gap-2">
-                    <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+                    <span class="mt-1.5 inline-block h-2 w-2 border border-ink bg-accent"></span>
                     <span>{proof}</span>
                   </li>
                 ))}

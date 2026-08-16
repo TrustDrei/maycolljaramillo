@@ -16,45 +16,50 @@ const homeLabel = lang === 'es' ? 'Volver al inicio' : 'Back to home';
 const navLabel = lang === 'es' ? 'Navegación principal' : 'Primary navigation';
 const mobileLabel = lang === 'es' ? 'Menú móvil' : 'Mobile menu';
 const themeLabel = lang === 'es' ? 'Cambiar tema' : 'Toggle theme';
+const langLabel = lang === 'es' ? 'Idioma' : 'Language';
 const currentPath = Astro.url.pathname;
 
-const isActive = (href: string) => currentPath === href || (href !== '/' && currentPath.startsWith(href));
+// Match exacto en las raíces de idioma: con startsWith, estar en /es/services
+// marcaba "Inicio" y "Servicios" como página actual a la vez.
+const isRoot = (href: string) => href === '/es' || href === '/en';
+const isActive = (href: string) =>
+  currentPath === href || (!isRoot(href) && currentPath.startsWith(`${href}/`));
 
 const langOptions = [
-  { code: 'es', label: 'ES', href: '/es', flag: '🇪🇸' },
-  { code: 'en', label: 'EN', href: '/en', flag: '🇺🇸' }
+  { code: 'es', label: 'ES', name: 'Español', href: '/es' },
+  { code: 'en', label: 'EN', name: 'English', href: '/en' }
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-border/50 bg-surface/85 backdrop-blur">
+<header class="sticky top-0 z-50 border-b-[3px] border-ink bg-surface">
   <div class="page-width flex items-center justify-between gap-3 px-4 py-3 md:px-0">
     <a
-      class="group flex items-center gap-3 rounded-full border border-border/60 bg-panel px-3 py-2 shadow-soft transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      class="group flex items-center gap-3 border-2 border-ink bg-panel px-3 py-2 transition hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[5px_5px_0_var(--stamp)]"
       href={homeHref}
       aria-label={homeLabel}
     >
-      <span class="relative grid h-10 w-10 place-items-center rounded-full bg-panel/80 p-1 shadow-soft transition group-hover:scale-[1.03]">
+      <span class="grid h-9 w-9 place-items-center border-2 border-ink bg-panel-strong">
         <img
           src="/images/logo-128.png"
-          alt={`${PERSON.shortName} logo`}
+          alt=""
           width="128"
           height="128"
-          class="h-full w-full rounded-full object-contain"
+          class="h-full w-full object-contain"
           loading="eager"
           decoding="async"
         />
       </span>
-      <span class="hidden flex-col text-left leading-tight sm:inline-flex">
-        <span class="block text-sm font-semibold text-foreground">{PERSON.shortName}</span>
+      <span class="hidden text-sm font-extrabold uppercase tracking-tight text-foreground sm:block">
+        {PERSON.shortName}
       </span>
     </a>
 
-    <nav class="hidden items-center gap-4 text-sm font-semibold lg:flex" aria-label={navLabel}>
+    <nav class="hidden items-center gap-1 text-sm lg:flex" aria-label={navLabel}>
       {links.map((item) => {
         const active = isActive(item.href);
         return (
           <a
-            class={`inline-flex items-center px-1 py-1 transition decoration-transparent ${active ? 'text-foreground border-b-2 border-accent' : 'text-foreground/70 hover:text-foreground'} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`}
+            class={`inline-flex items-center border-2 px-3 py-1.5 font-extrabold uppercase tracking-wide transition ${active ? 'border-ink bg-accent text-[var(--on-accent)]' : 'border-transparent text-foreground hover:border-ink hover:bg-panel'}`}
             href={item.href}
             aria-current={active ? 'page' : undefined}
           >
@@ -67,7 +72,7 @@ const langOptions = [
     <div class="hidden items-center gap-3 lg:flex">
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-panel text-foreground shadow-soft transition hover:border-accent hover:-rotate-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="inline-flex h-10 w-10 items-center justify-center border border-ink bg-panel text-foreground transition hover:border-accent hover:-rotate-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         data-theme-toggle
         aria-label={themeLabel}
         aria-pressed="false"
@@ -84,26 +89,27 @@ const langOptions = [
           </svg>
         </span>
       </button>
-      <details class="relative">
-        <summary class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-border/70 bg-panel px-2 py-1.5 text-sm font-semibold text-foreground transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-          <span aria-hidden="true" class="text-lg leading-none">{lang === 'es' ? '🇪🇸' : '🇺🇸'}</span>
-          <span class="sr-only">{lang === 'es' ? 'Español' : 'English'}</span>
-        </summary>
-        <div class="absolute right-0 mt-2 w-24 rounded-md border border-border/70 bg-panel shadow-soft">
-          {langOptions.map((option) => (
-            <a
-              class="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-foreground/85 transition decoration-transparent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              href={option.href}
-              hreflang={option.code}
-            >
-              <span aria-hidden="true" class="text-lg leading-none">{option.flag}</span>
-              <span class="sr-only">{option.label}</span>
-            </a>
-          ))}
-        </div>
-      </details>
+      {/* Códigos de idioma en vez de banderas: un idioma no es un país. */}
+      <div class="flex border-2 border-ink" role="group" aria-label={langLabel}>
+        {langOptions.map((option) => (
+          <a
+            class={`px-3 py-2 text-sm font-extrabold uppercase transition ${
+              option.code === lang
+                ? 'bg-accent text-[var(--on-accent)]'
+                : 'bg-panel text-foreground hover:bg-panel-strong'
+            }`}
+            href={option.href}
+            hreflang={option.code}
+            lang={option.code}
+            aria-current={option.code === lang ? 'true' : undefined}
+          >
+            {option.label}
+            <span class="sr-only"> — {option.name}</span>
+          </a>
+        ))}
+      </div>
       <a
-        class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+        class="btn btn-primary"
         href={CONTACT_CTA.primary.href}
       >
         <Icon name="whatsapp" label="WhatsApp" />
@@ -114,7 +120,7 @@ const langOptions = [
     <div class="flex items-center gap-2 lg:hidden">
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-panel text-foreground transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-[var(--on-accent)] active:translate-x-[2px] active:translate-y-[2px]"
         data-theme-toggle
         aria-label={themeLabel}
         aria-pressed="false"
@@ -126,7 +132,7 @@ const langOptions = [
       </button>
       <button
         type="button"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-panel text-foreground transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        class="inline-flex h-10 w-10 items-center justify-center border-2 border-ink bg-panel text-foreground transition hover:bg-accent hover:text-[var(--on-accent)] active:translate-x-[2px] active:translate-y-[2px]"
         aria-expanded="false"
         aria-controls="mobile-nav"
         data-nav-toggle
@@ -139,51 +145,42 @@ const langOptions = [
     </div>
   </div>
 
-  <div id="mobile-nav" class="hidden border-t border-border/60 bg-surface/98 backdrop-blur-lg lg:hidden" aria-label={mobileLabel}>
-    <div class="page-width flex flex-col gap-3 px-4 py-4 text-sm">
-      <div class="flex items-center gap-3 border border-border/60 bg-panel px-3 py-2">
-        <img
-          src="/images/person-128.png"
-          alt={`${PERSON.shortName}`}
-          width="128"
-          height="128"
-          class="h-10 w-10 rounded-full object-cover shadow-soft"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="leading-tight">
-          <p class="text-sm font-semibold text-foreground">{PERSON.shortName}</p>
-        </div>
+  <div id="mobile-nav" class="hidden border-t-[3px] border-ink bg-surface lg:hidden" aria-label={mobileLabel}>
+    <div class="page-width flex flex-col gap-2 px-4 py-4 text-sm">
+      {links.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            class={`border-2 border-ink px-3 py-2.5 font-extrabold uppercase tracking-wide transition ${
+              active ? 'bg-accent text-[var(--on-accent)]' : 'bg-panel text-foreground'
+            }`}
+            href={item.href}
+            aria-current={active ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+      <div class="mt-1 flex border-2 border-ink" role="group" aria-label={langLabel}>
+        {langOptions.map((option) => (
+          <a
+            class={`flex-1 px-3 py-2.5 text-center font-extrabold uppercase transition ${
+              option.code === lang
+                ? 'bg-accent text-[var(--on-accent)]'
+                : 'bg-panel text-foreground'
+            }`}
+            href={option.href}
+            hreflang={option.code}
+            lang={option.code}
+            aria-current={option.code === lang ? 'true' : undefined}
+          >
+            {option.label}
+            <span class="sr-only"> — {option.name}</span>
+          </a>
+        ))}
       </div>
-      {links.map((item) => (
-        <a
-          class="border border-border/60 bg-panel px-3 py-2 text-foreground/90 transition decoration-transparent hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          href={item.href}
-        >
-          {item.label}
-        </a>
-      ))}
-      <details class="border border-border/70 bg-panel px-3 py-2">
-        <summary class="flex cursor-pointer items-center justify-between text-sm font-semibold text-foreground">
-          <span aria-hidden="true" class="text-lg leading-none">{lang === 'es' ? '🇪🇸' : '🇺🇸'}</span>
-          <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M4 6l4 4 4-4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-          <span class="sr-only">{lang === 'es' ? 'Idioma actual Español' : 'Current language English'}</span>
-        </summary>
-        <div class="mt-2 space-y-1">
-          {langOptions.map((option) => (
-            <a
-              class="flex items-center gap-2 rounded-md px-3 py-2 text-foreground/85 transition decoration-transparent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              href={option.href}
-              hreflang={option.code}
-            >
-              <span aria-hidden="true" class="text-lg leading-none">{option.flag}</span>
-              <span class="sr-only">{option.label}</span>
-            </a>
-          ))}
-        </div>
-      </details>
       <a
-        class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+        class="btn btn-primary"
         href={CONTACT_CTA.primary.href}
       >
         {contactCta}
@@ -208,17 +205,18 @@ const langOptions = [
       return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     };
 
-    const setTheme = (mode) => {
+    const setTheme = (mode, persist = true) => {
       const isDark = mode === 'dark';
       root.classList.toggle('theme-dark', isDark);
       root.classList.toggle('theme-light', !isDark);
       toggles.forEach((btn) => btn.setAttribute('aria-pressed', String(isDark)));
       icons.sun.forEach((el) => el.classList.toggle('hidden', isDark));
       icons.moon.forEach((el) => el.classList.toggle('hidden', !isDark));
-      localStorage.setItem(storageKey, mode);
+      if (persist) localStorage.setItem(storageKey, mode);
     };
 
-    setTheme(getPreferredTheme());
+    // El head ya pintó el tema; aquí solo se sincronizan iconos y aria-pressed.
+    setTheme(getPreferredTheme(), false);
 
     toggles.forEach((btn) => {
       btn.addEventListener('click', () => {
