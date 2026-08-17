@@ -3,48 +3,117 @@
     "slug": "auditoria-cwv-shopify-sin-romper-checkout",
     "title": "Auditoría de Core Web Vitals en Shopify sin romper el checkout",
     "angle": "Procedimiento para auditar y corregir CWV en un theme Shopify manteniendo intactos el flujo de compra y el tracking. Nicho estrecho y poca competencia.",
-    "tags": ["Shopify", "Core Web Vitals", "Performance"]
+    "tags": [
+      "Shopify",
+      "Core Web Vitals",
+      "Performance"
+    ],
+    "must": [
+      "checkout",
+      "liquid",
+      "cls"
+    ]
   },
   {
     "slug": "hreflang-astro-es-en-sin-errores",
     "title": "Hreflang ES/EN en Astro sin errores de implementación",
     "angle": "Cómo montar un clúster hreflang correcto en Astro: autorreferencia, x-default, canónicos y los fallos que hacen que Google ignore el clúster entero.",
-    "tags": ["SEO", "Astro", "Hreflang"]
+    "tags": [
+      "SEO",
+      "Astro",
+      "Hreflang"
+    ],
+    "must": [
+      "hreflang",
+      "x-default",
+      "canonical"
+    ]
   },
   {
     "slug": "migracion-wordpress-headless-redirects",
     "title": "Migración de WordPress a headless sin perder posiciones",
     "angle": "Mapa de redirects, canónicos y validación post-deploy para migrar sin caída de tráfico orgánico.",
-    "tags": ["WordPress", "Migración", "SEO"]
+    "tags": [
+      "WordPress",
+      "Migración",
+      "SEO"
+    ],
+    "must": [
+      "redirect",
+      "301",
+      "canonical"
+    ]
   },
   {
     "slug": "whatsapp-business-api-captacion-leads",
     "title": "WhatsApp Business API para captación: arquitectura y trazabilidad",
     "angle": "Integración con opt-in, logs de eventos y atribución, sin romper el consentimiento ni duplicar conversiones.",
-    "tags": ["Automatización", "WhatsApp", "Tracking"]
+    "tags": [
+      "Automatización",
+      "WhatsApp",
+      "Tracking"
+    ],
+    "must": [
+      "opt-in",
+      "webhook",
+      "atribuc"
+    ]
   },
   {
     "slug": "glosario-core-web-vitals",
     "title": "Glosario de Core Web Vitals: LCP, CLS, INP explicados",
     "angle": "Definiciones precisas y accionables de cada métrica, cómo se mide, qué umbral aplica y qué la degrada en la práctica.",
-    "tags": ["Core Web Vitals", "Glosario", "Performance"]
+    "tags": [
+      "Core Web Vitals",
+      "Glosario",
+      "Performance"
+    ],
+    "must": [
+      "lcp",
+      "inp",
+      "cls"
+    ]
   },
   {
     "slug": "cuanto-cuesta-auditoria-seo-tecnica",
     "title": "Qué incluye (y qué no) una auditoría SEO técnica",
     "angle": "Alcance real, entregables, duración y criterios de aceptación. Contenido de consideración para quien evalúa contratar.",
-    "tags": ["SEO", "Auditoría", "Proceso"]
+    "tags": [
+      "SEO",
+      "Auditoría",
+      "Proceso"
+    ],
+    "must": [
+      "alcance",
+      "entregable"
+    ]
   },
   {
     "slug": "schema-jsonld-casos-de-estudio",
     "title": "Schema JSON-LD para casos de estudio y páginas de servicio",
     "angle": "Qué tipos usar, cómo modelar resultados medibles y errores frecuentes que invalidan el marcado.",
-    "tags": ["SEO", "Schema", "JSON-LD"]
+    "tags": [
+      "SEO",
+      "Schema",
+      "JSON-LD"
+    ],
+    "must": [
+      "json-ld",
+      "schema.org"
+    ]
   },
   {
     "slug": "aem-gobernanza-componentes",
     "title": "AEM: gobernanza de componentes y operaciones de contenido",
     "angle": "Cómo estructurar componentes para que los equipos de contenido no rompan accesibilidad ni performance.",
-    "tags": ["AEM", "Enterprise", "DX"]
+    "tags": [
+      "AEM",
+      "Enterprise",
+      "DX"
+    ],
+    "must": [
+      "componente",
+      "accesibilidad"
+    ]
   }
 ]

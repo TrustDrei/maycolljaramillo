@@ -56,17 +56,12 @@ const section = (raw, from, to) => {
 const stripFence = (s) =>
   s.replace(/^\s*```(?:json|markdown|html)?\s*\n?/i, '').replace(/\n?\s*```\s*$/, '').trim();
 
-const parseResponse = (raw) => {
-  const metaRaw = stripFence(section(raw, SEC.meta, SEC.es));
+const parseMeta = (raw, until) => {
+  const metaRaw = stripFence(section(raw, SEC.meta, until));
   const start = metaRaw.indexOf('{');
   const end = metaRaw.lastIndexOf('}');
   if (start === -1 || end === -1) throw new Error('la sección META no contiene JSON');
-  const meta = JSON.parse(metaRaw.slice(start, end + 1));
-  return {
-    ...meta,
-    bodyMarkdown: stripFence(section(raw, SEC.es, SEC.en)),
-    enBodyHtml: stripFence(section(raw, SEC.en, SEC.end))
-  };
+  return JSON.parse(metaRaw.slice(start, end + 1));
 };
 
 // El cuerpo en inglés se inyecta con set:html en /en/blog/[slug]. Es HTML que
@@ -96,63 +91,150 @@ const SYSTEM = `Eres un ingeniero de sistemas senior especializado en SEO técni
 Escribes en español de España, en primera persona, con criterio técnico y sin relleno de marketing.
 Prohibido: superlativos vacíos, "en el mundo digital de hoy", promesas sin evidencia, cifras inventadas.
 Si un dato concreto no se puede afirmar con seguridad, se explica el método en vez de dar el número.
-Devuelves ÚNICAMENTE un objeto JSON válido, sin texto alrededor y sin markdown.`;
+Sigues al pie de la letra el formato de secciones que se te pide.`;
 
-const prompt = (topic) => `Escribe una entrada técnica de blog.
+// Una llamada por idioma. Pedir el cuerpo en español y su traducción completa
+// al inglés en la misma respuesta hacía que ambos compitieran por el mismo
+// presupuesto de tokens: el español se quedaba en 470-600 palabras.
+// El reintento vive aquí, por llamada, no alrededor del post entero: la API
+// devuelve 504 y 503 con frecuencia, y un fallo en la traducción no debe tirar
+// a la basura un cuerpo en español que ya cumplía.
+const ask = async (userPrompt, maxTokens) => {
+  let lastErr;
+  for (let attempt = 0; attempt < BACKOFF_MS.length; attempt++) {
+    if (BACKOFF_MS[attempt]) await sleep(BACKOFF_MS[attempt]);
+    try {
+      const res = await fetch(API, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: MODEL,
+          messages: [
+            { role: 'system', content: SYSTEM },
+            { role: 'user', content: userPrompt }
+          ],
+          temperature: 0.6,
+          top_p: 0.9,
+          max_tokens: maxTokens
+        })
+      });
+
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      const data = await res.json();
+      const content = data.choices?.[0]?.message?.content;
+      if (!content) throw new Error('respuesta sin content (¿modelo de razonamiento?)');
+      return content;
+    } catch (err) {
+      lastErr = err;
+      if (attempt < BACKOFF_MS.length - 1) process.stdout.write(`[${err.message}] `);
+    }
+  }
+  throw lastErr;
+};
+
+const promptEs = (topic) => `Escribe una entrada técnica de blog en español.
 
 Tema: ${topic.title}
 Enfoque: ${topic.angle}
 
-Responde EXACTAMENTE con esta estructura, con los centinelas en su propia línea
-y sin ningún texto fuera de las secciones:
+Responde EXACTAMENTE con esta estructura, centinelas en su propia línea y sin
+texto fuera de las secciones:
 
 ${SEC.meta}
-{"title":"titular en español, max 70 caracteres","excerpt":"resumen de 140-180 caracteres","seoTitle":"titulo SEO, max 60 caracteres","seoDescription":"meta description de 140-160 caracteres","tags":["3 a 5 etiquetas"],"enTitle":"el titular en ingles","enExcerpt":"el resumen en ingles","enSeoTitle":"titulo SEO en ingles, max 60 caracteres","enSeoDescription":"meta description en ingles, 140-160 caracteres"}
+{"title":"titular, max 70 caracteres","excerpt":"resumen de 140-180 caracteres","seoTitle":"titulo SEO, max 60 caracteres","seoDescription":"meta description de 140-160 caracteres","tags":["3 a 5 etiquetas"]}
 ${SEC.es}
-(aquí el cuerpo en Markdown, MINIMO ${MIN_WORDS} palabras, sin vallas de código alrededor de todo)
-${SEC.en}
-(aquí el mismo cuerpo traducido al inglés, en HTML simple)
+(cuerpo en Markdown)
 ${SEC.end}
 
-El JSON de ${SEC.meta} debe ir en UNA sola línea y solo con valores cortos.
-Los cuerpos van fuera del JSON, en texto plano.
+El JSON va en UNA línea y solo con valores cortos. El cuerpo va fuera del JSON.
 
 Reglas del cuerpo (la extensión es un requisito, no una sugerencia):
-- Empieza con un párrafo de respuesta directa de 40-60 palabras, antes de cualquier encabezado.
-- Escribe EXACTAMENTE 6 encabezados ## en forma de pregunta, porque es lo que
+- Abre con un párrafo de respuesta directa de 40-60 palabras, antes de cualquier encabezado.
+- Escribe EXACTAMENTE 6 encabezados "## " en forma de pregunta, porque es lo que
   extraen los motores de respuesta.
-- Cada una de esas 6 secciones debe tener AL MENOS 160 palabras: una respuesta
-  concreta de 2-3 frases y después el desarrollo con detalle técnico real.
+- Cada una de las 6 secciones: AL MENOS 170 palabras. Empieza con una respuesta
+  concreta de 2-3 frases y después desarrolla con detalle técnico real, ejemplos
+  de configuración y errores frecuentes.
 - Incluye al menos una lista y un bloque de código o una tabla.
 - Cierra con "## Conclusión" y 3 puntos accionables.
-- El cuerpo completo debe superar las ${MIN_WORDS} palabras. Cuenta antes de responder;
-  si te quedas corto, amplía el desarrollo de cada sección con ejemplos concretos.
-- En enBodyHtml usa solo estas etiquetas: h2, h3, p, ul, ol, li, strong, em, code, pre, table, thead, tbody, tr, th, td.`;
+- Total mínimo: ${MIN_WORDS} palabras. 6 secciones × 170 palabras ya te acercan;
+  no resumas, desarrolla.`;
+
+const promptExpand = (topic, body, current) => `Este borrador se ha quedado corto:
+tiene ${current} palabras y necesita más de ${MIN_WORDS}.
+
+Amplíalo hasta superar las ${MIN_WORDS} palabras SIN añadir secciones nuevas y sin
+repetir lo ya dicho: desarrolla cada sección existente con detalle técnico,
+ejemplos de configuración, casos límite y errores frecuentes.
+Mantén el tema (${topic.title}), el tono y los encabezados actuales.
+
+Responde con el cuerpo completo ampliado entre estos centinelas, sin nada más:
+
+${SEC.es}
+(cuerpo ampliado en Markdown)
+${SEC.end}
+
+Borrador actual:
+
+${body}`;
+
+const promptEn = (esPost) => `Traduce esta entrada al inglés.
+
+Responde EXACTAMENTE con esta estructura, centinelas en su propia línea:
+
+${SEC.meta}
+{"enTitle":"titular en ingles","enExcerpt":"resumen en ingles, 140-180 caracteres","enSeoTitle":"titulo SEO en ingles, max 60 caracteres","enSeoDescription":"meta description en ingles, 140-160 caracteres"}
+${SEC.en}
+(cuerpo traducido, en HTML)
+${SEC.end}
+
+En el HTML usa solo estas etiquetas: h2, h3, p, ul, ol, li, strong, em, code,
+pre, table, thead, tbody, tr, th, td. Traduce el contenido completo, sin resumir.
+
+Título: ${esPost.title}
+Resumen: ${esPost.excerpt}
+
+Cuerpo:
+
+${esPost.bodyMarkdown}`;
 
 const generate = async (topic) => {
-  const res = await fetch(API, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: MODEL,
-      messages: [
-        { role: 'system', content: SYSTEM },
-        { role: 'user', content: prompt(topic) }
-      ],
-      temperature: 0.6,
-      top_p: 0.9,
-      max_tokens: 6000
-    })
-  });
+  // 1) Metadatos + cuerpo en español.
+  const rawEs = await ask(promptEs(topic), 6000);
+  const post = { ...parseMeta(rawEs, SEC.es), bodyMarkdown: stripFence(section(rawEs, SEC.es, SEC.end)) };
 
-  if (!res.ok) throw new Error(`API ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  const data = await res.json();
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) throw new Error('respuesta sin content (¿modelo de razonamiento?)');
-  return parseResponse(content);
+  // 2) Si se queda corto, una pasada de ampliación sobre el mismo cuerpo.
+  let n = words(post.bodyMarkdown);
+  if (n < MIN_WORDS) {
+    process.stdout.write(`ampliando ${n}→ … `);
+    const rawExp = await ask(promptExpand(topic, post.bodyMarkdown, n), 7000);
+    const expanded = stripFence(section(rawExp, SEC.es, SEC.end));
+    // Solo se acepta si de verdad crece: una "ampliación" más corta es un fallo.
+    if (words(expanded) > n) {
+      post.bodyMarkdown = expanded;
+      n = words(expanded);
+    }
+  }
+  if (n < MIN_WORDS) throw new Error(`cuerpo de ${n} palabras tras ampliar, mínimo ${MIN_WORDS}`);
+
+  // 3) Traducción, ya con el cuerpo definitivo.
+  const rawEn = await ask(promptEn(post), 7000);
+  Object.assign(post, parseMeta(rawEn, SEC.en));
+  post.enBodyHtml = stripFence(section(rawEn, SEC.en, SEC.end));
+
+  return post;
 };
 
 // ---------- validación ----------
+
+// Términos retirados o incorrectos que delatan que el modelo escribe de oídas.
+// Un post que los use hace más daño que no publicar: el sitio vende criterio
+// técnico. FID lo sustituyó INP en marzo de 2024.
+const RED_FLAGS = [
+  [/\bFID\b|First Input Delay/i, 'menciona FID, retirado en 2024 y sustituido por INP'],
+  [/gzip[^.]{0,40}minif|minif[^.]{0,40}gzip/i, 'presenta Gzip como minificador; es compresión'],
+  [/en el mundo digital|hoy en día, /i, 'relleno de marketing']
+];
 
 const validate = (post, topic) => {
   const need = ['title', 'excerpt', 'seoTitle', 'seoDescription', 'tags', 'bodyMarkdown'];
@@ -162,9 +244,37 @@ const validate = (post, topic) => {
     }
   }
   if (!Array.isArray(post.tags)) throw new Error('tags debe ser una lista');
+
+  // Longitudes: el modelo devolvía excerpts de 40 caracteres cuando se pedían 140.
+  const len = (k, min, max) => {
+    const v = String(post[k]).trim();
+    if (v.length < min || v.length > max) {
+      throw new Error(`${k}: ${v.length} caracteres, se pide ${min}-${max}`);
+    }
+  };
+  len('title', 25, 75);
+  len('excerpt', 120, 200);
+  len('seoTitle', 35, 65);
+  len('seoDescription', 120, 170);
+
   const n = words(post.bodyMarkdown);
   if (n < MIN_WORDS) throw new Error(`cuerpo de ${n} palabras, mínimo ${MIN_WORDS}`);
-  if (!/^##\s/m.test(post.bodyMarkdown)) throw new Error('el cuerpo no tiene encabezados ##');
+
+  const heads = post.bodyMarkdown.match(/^##\s+.*/gm) ?? [];
+  if (heads.length < 5) throw new Error(`solo ${heads.length} encabezados ##, se piden 6 más conclusión`);
+  const asked = heads.filter((h) => h.includes('?')).length;
+  if (asked < 4) throw new Error(`solo ${asked} encabezados en forma de pregunta`);
+
+  // El cuerpo debe tratar el ángulo del tema, no el título genérico. Se exige
+  // que aparezcan los términos que definen el enfoque de la cola.
+  const body = post.bodyMarkdown.toLowerCase();
+  const missing = (topic.must ?? []).filter((term) => !body.includes(term.toLowerCase()));
+  if (missing.length) throw new Error(`el cuerpo no trata: ${missing.join(', ')}`);
+
+  for (const [re, why] of RED_FLAGS) {
+    if (re.test(post.bodyMarkdown)) throw new Error(why);
+  }
+
   return { ...post, slug: topic.slug };
 };
 
@@ -216,9 +326,10 @@ for (const [i, topic] of queue.entries()) {
   // Respiro entre temas: dos generaciones seguidas disparan el límite de workers.
   if (i > 0) await sleep(15000);
   process.stdout.write(`· ${topic.slug} … `);
+  // Los fallos de API ya se reintentan dentro de ask(); aquí solo se cubre que
+  // el resultado no pase la validación de contenido.
   let lastErr;
-  for (let attempt = 0; attempt < BACKOFF_MS.length; attempt++) {
-    if (BACKOFF_MS[attempt]) await sleep(BACKOFF_MS[attempt]);
+  for (let attempt = 1; attempt <= 2; attempt++) {
     try {
       const post = validate(await generate(topic), topic);
       const file = join(BLOG_DIR, `${topic.slug}.md`);
@@ -229,9 +340,7 @@ for (const [i, topic] of queue.entries()) {
       break;
     } catch (err) {
       lastErr = err;
-      if (attempt < BACKOFF_MS.length - 1) {
-        process.stdout.write(`reintento ${attempt + 1} (${err.message.slice(0, 80)}) … `);
-      }
+      if (attempt < 2) process.stdout.write(`reintento (${err.message.slice(0, 70)}) … `);
     }
   }
   if (lastErr) {
